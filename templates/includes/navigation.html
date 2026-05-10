@@ -89,27 +89,37 @@
               </li>
               {% if user.is_authenticated %}
                 <li class="nav-item ms-lg-auto">
-                  <span class="nav-link">
-                    {{ user.username }}
-                  </span>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="#">
-                    Logout
+                    {{ user.username }}
                   </a>
-
                 </li>
+
+                <li class="nav-item d-flex align-items-center">
+                  <span class="text-secondary px-2">|</span>
+                </li>
+
+                <li class="nav-item ms-lg-auto me-2 d-flex align-items-center">
+                  <form method="post" action="{% url 'logout' %}" class="m-0 p-0">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="nav-link bg-transparent border-0 p-0 m-0 text-dark"
+                            style="text-transform: none; line-height: normal;">
+                      Logout
+                    </button>
+                  </form>
+                </li>
+
               {% else %}
                 <li class="nav-item ms-lg-auto">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="{% url "login" %}">
                     Login
                   </a>
                 </li>
               {% endif %}
-              <li class="nav-item my-auto ms-3 ms-lg-0">
+              <li class="nav-item my-auto ms-2 ms-lg-0">
                 <a href="https://github.com/artradkevych/task-manager"
                    target="_blank"
-                   class="btn btn-sm bg-gradient-primary btn-round mb-0 me-1 mt-2 mt-md-0">
+                   class="btn btn-sm bg-gradient-primary btn-round mb-0">
                   GitHub Repo
                 </a>
               </li>

@@ -46,7 +46,8 @@ class Task(models.Model):
             ("IN_PROGRESS", "In progress"),
             ("IN_REVIEW", "In review"),
             ("DONE", "Done")
-        ]
+        ],
+        default="TODO"
     )
     priority = models.CharField(
         max_length=20,
@@ -67,13 +68,16 @@ class Task(models.Model):
     assignee = models.ForeignKey(
         Worker,
         related_name="tasks",
-        on_delete=models.PROTECT
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
     )
     project = models.ForeignKey(
         "Project",
         related_name="tasks",
         on_delete=models.PROTECT
     )
+    tags = models.ManyToManyField("Tag", related_name="tasks")
 
 
 class Team(models.Model):

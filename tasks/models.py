@@ -77,7 +77,11 @@ class Task(models.Model):
         related_name="tasks",
         on_delete=models.PROTECT
     )
-    tags = models.ManyToManyField("Tag", related_name="tasks")
+    tags = models.ManyToManyField(
+        "Tag",
+        related_name="tasks",
+        blank=True
+    )
 
     class Meta:
         ordering = ["-updated_at"]

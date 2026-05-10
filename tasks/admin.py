@@ -32,16 +32,19 @@ class WorkerAdmin(UserAdmin):
             ),
         )
     )
+    list_filter = UserAdmin.list_filter + ("position",)
 
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(TaskType)
 class TaskTypeAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Task)
@@ -55,6 +58,20 @@ class TaskAdmin(admin.ModelAdmin):
         "deadline",
         "updated_at"
     )
+    search_fields = (
+        "name",
+        "description",
+        "assignee__username",
+        "assignee__email"
+    )
+    list_filter = (
+        "status",
+        "priority",
+        "project",
+        "task_type",
+        "assignee",
+    )
+    date_hierarchy = "deadline"
 
 
 @admin.register(Team)
@@ -64,6 +81,7 @@ class TeamAdmin(admin.ModelAdmin):
         "created_at",
         "workers_count"
     )
+    search_fields = ("name",)
 
 
 @admin.register(Project)
@@ -74,8 +92,14 @@ class ProjectAdmin(admin.ModelAdmin):
         "is_active",
         "created_at"
     )
+    search_fields = ("name",)
+    list_filter = (
+        "is_active",
+        "team",
+    )
 
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    search_fields = ("name",)

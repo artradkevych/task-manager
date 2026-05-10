@@ -2,3 +2,4 @@
 .venv
 keylog.log
 **__pycache__
+db.sqlite3

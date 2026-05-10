@@ -79,12 +79,24 @@ class Task(models.Model):
     )
     tags = models.ManyToManyField("Tag", related_name="tasks")
 
+    class Meta:
+        ordering = ["-updated_at"]
+
+    def __str__(self) -> str:
+        return f"{self.name} - {self.project} [{self.status}]"
+
 
 class Team(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     workers = models.ManyToManyField(Worker,related_name="teams")
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Project(models.Model):
@@ -98,6 +110,18 @@ class Project(models.Model):
         on_delete=models.PROTECT
     )
 
+    class Meta:
+        ordering = ["is_active", "-created_at"]
+
+    def __str__(self) -> str:
+        return self.name
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=65, unique=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self) -> str:
+        return self.name

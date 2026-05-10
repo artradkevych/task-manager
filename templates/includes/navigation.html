@@ -20,7 +20,7 @@
             </span>
           </button>
           <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0" id="navigation">
-            <ul class="navbar-nav ms-lg-12 ps-lg-5 w-100">
+            <ul class="navbar-nav ps-lg-3 w-100">
               <li class="nav-item mx-2">
                 <a class="nav-link" href="/">
                   Dashboard
@@ -85,38 +85,71 @@
                   <a class="dropdown-item border-radius-md" href="/workers/">
                     List Workers
                   </a>
+                  <a class="dropdown-item border-radius-md" href="/workers/create/">
+                    Create Worker
+                  </a>
                 </div>
               </li>
-              {% if user.is_authenticated %}
-                <li class="nav-item ms-lg-auto">
-                  <a class="nav-link" href="#">
-                    {{ user.username }}
+
+              <li class="nav-item dropdown dropdown-hover mx-2">
+                <a class="nav-link d-flex align-items-center"
+                   data-bs-toggle="dropdown">
+                  Tags
+                  <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
+                       class="ms-1">
+                </a>
+                <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
+                  <a class="dropdown-item border-radius-md" href="/tags/">
+                    List Tags
                   </a>
-                </li>
+                  <a class="dropdown-item border-radius-md" href="/tags/create/">
+                    Create Tag
+                  </a>
+                </div>
+              </li>
 
-                <li class="nav-item d-flex align-items-center">
-                  <span class="text-secondary px-2">|</span>
-                </li>
+              <li class="nav-item dropdown dropdown-hover mx-2">
+                <a class="nav-link d-flex align-items-center"
+                   data-bs-toggle="dropdown">
+                  Positions
+                  <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
+                       class="ms-1">
+                </a>
+                <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
+                  <a class="dropdown-item border-radius-md" href="/positions/">
+                    List Positions
+                  </a>
+                  <a class="dropdown-item border-radius-md" href="/positions/create/">
+                    Create Position
+                  </a>
+                </div>
+              </li>
+              <li class="nav-item ms-auto d-flex align-items-center">
+              {% if user.is_authenticated %}
+                <a class="nav-link" href="#">
+                  {{ user.username }}
+                </a>
 
-                <li class="nav-item ms-lg-auto me-2 d-flex align-items-center">
-                  <form method="post" action="{% url 'logout' %}" class="m-0 p-0">
-                    {% csrf_token %}
-                    <button type="submit"
-                            class="nav-link bg-transparent border-0 p-0 m-0 text-dark"
-                            style="text-transform: none; line-height: normal;">
-                      Logout
-                    </button>
-                  </form>
-                </li>
+                <span class="text-secondary px-2">|</span>
+
+                <form method="post" action="{% url 'logout' %}" class="m-0 p-0">
+                  {% csrf_token %}
+                  <button type="submit"
+                          class="nav-link bg-transparent border-0 p-0 m-0 text-dark"
+                          style="text-transform: none; line-height: normal;">
+                    Logout
+                  </button>
+                </form>
 
               {% else %}
-                <li class="nav-item ms-lg-auto">
-                  <a class="nav-link" href="{% url "login" %}">
-                    Login
-                  </a>
-                </li>
+                <a class="nav-link" href="{% url "login" %}">
+                  Login
+                </a>
               {% endif %}
-              <li class="nav-item my-auto ms-2 ms-lg-0">
+
+              </li>
+
+              <li class="nav-item my-auto ms-3">
                 <a href="https://github.com/artradkevych/task-manager"
                    target="_blank"
                    class="btn btn-sm bg-gradient-primary btn-round mb-0">

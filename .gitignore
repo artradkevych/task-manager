@@ -1,3 +1,4 @@
 .idea
 .venv
 keylog.log
+**__pycache__

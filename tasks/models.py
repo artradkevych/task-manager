@@ -37,7 +37,17 @@ class Task(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     deadline = models.DateTimeField()
-    is_completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status = models.CharField(
+        max_length=25,
+        choices=[
+            ("TODO", "Todo"),
+            ("IN_PROGRESS", "In progress"),
+            ("IN_REVIEW", "In review"),
+            ("DONE", "Done")
+        ]
+    )
     priority = models.CharField(
         max_length=20,
         choices=[
@@ -51,6 +61,16 @@ class Task(models.Model):
     )
     task_type = models.ForeignKey(
         TaskType,
+        related_name="tasks",
+        on_delete=models.PROTECT
+    )
+    assignee = models.ForeignKey(
+        Worker,
+        related_name="tasks",
+        on_delete=models.PROTECT
+    )
+    project = models.ForeignKey(
+        "Project",
         related_name="tasks",
         on_delete=models.PROTECT
     )

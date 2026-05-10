@@ -115,7 +115,7 @@ class Project(models.Model):
     )
 
     class Meta:
-        ordering = ["is_active", "-created_at"]
+        ordering = ["-is_active", "-created_at"]
 
     def __str__(self) -> str:
         return self.name

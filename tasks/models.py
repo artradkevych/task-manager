@@ -54,3 +54,26 @@ class Task(models.Model):
         related_name="tasks",
         on_delete=models.PROTECT
     )
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    workers = models.ManyToManyField(Worker,related_name="teams")
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    team = models.ForeignKey(
+        Team,
+        related_name="projects",
+        on_delete=models.PROTECT
+    )
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=65, unique=True)

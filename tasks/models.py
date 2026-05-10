@@ -92,6 +92,10 @@ class Team(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     workers = models.ManyToManyField(Worker,related_name="teams")
 
+    @property
+    def workers_count(self) -> int:
+        return self.workers.count()
+
     class Meta:
         ordering = ["name"]
 

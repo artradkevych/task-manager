@@ -15,7 +15,10 @@ def index(request):
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
-    latest_tasks = Task.objects.filter(status__in=("TODO", "IN_PROGRESS"))[:6]
+    latest_tasks = Task.objects.filter(
+        assignee=request.user,
+        status__in=("TODO", "IN_PROGRESS")
+    )[:6]
 
     context = {
         "tasks_count": tasks_count,

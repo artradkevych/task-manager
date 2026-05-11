@@ -65,12 +65,10 @@ class Task(models.Model):
         related_name="tasks",
         on_delete=models.PROTECT
     )
-    assignee = models.ForeignKey(
+    assignees = models.ManyToManyField(
         Worker,
         related_name="tasks",
-        on_delete=models.SET_NULL,
         blank=True,
-        null=True
     )
     project = models.ForeignKey(
         "Project",

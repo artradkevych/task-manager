@@ -53,7 +53,7 @@ class TaskAdmin(admin.ModelAdmin):
         "name",
         "status",
         "priority",
-        "assignee",
+        "get_assignees",
         "project",
         "deadline",
         "updated_at"
@@ -61,17 +61,21 @@ class TaskAdmin(admin.ModelAdmin):
     search_fields = (
         "name",
         "description",
-        "assignee__username",
-        "assignee__email"
+        "assignees__username",
     )
     list_filter = (
         "status",
         "priority",
         "project",
         "task_type",
-        "assignee",
+        "assignees",
     )
+    filter_horizontal = ("assignees",)
     date_hierarchy = "deadline"
+
+    @admin.display(description="Assignees")
+    def get_assignees(self, obj):
+        return ", ".join([user.username for user in obj.assignees.all()])
 
 
 @admin.register(Team)

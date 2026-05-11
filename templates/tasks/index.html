@@ -100,16 +100,35 @@
                 {{ task.status }}
               </span>
             </p>
-            <p class="text-sm">
+            <p class="text-sm mb-3">
               Priority:
-              <span class="badge bg-warning">
-                {{ task.priority }}
+
+              {% if task.priority == "URGENT" %}
+                <span class="badge bg-danger">
+
+              {% elif task.priority == "HIGH" %}
+                <span class="badge bg-warning">
+
+              {% elif task.priority == "MEDIUM" %}
+                <span class="badge bg-primary">
+
+              {% elif task.priority == "LOW" %}
+                <span class="badge bg-info">
+
+              {% elif task.priority == "OPTIONAL" %}
+                <span class="badge bg-secondary">
+
+              {% endif %}
+                {{ task.get_priority_display }}
               </span>
             </p>
-            <p class="text-sm mb-0">
-              Assignee:
-              {{ task.assignee }}
-            </p>
+            {% for worker in task.assignees.all %}
+              <span class="badge bg-secondary me-1">
+                {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
+              </span>
+            {% empty %}
+              <span class="text-muted">Unassigned</span>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -152,15 +171,37 @@
                     {{ task.status }}
                   </span>
                 </p>
-                <p class="text-sm">
+                <p class="text-sm mb-3">
                   Priority:
-                  <span class="badge bg-secondary">
-                    {{ task.priority }}
+
+                  {% if task.priority == "URGENT" %}
+                    <span class="badge bg-danger">
+
+                  {% elif task.priority == "HIGH" %}
+                    <span class="badge bg-warning">
+
+                  {% elif task.priority == "MEDIUM" %}
+                    <span class="badge bg-primary">
+
+                  {% elif task.priority == "LOW" %}
+                    <span class="badge bg-info">
+
+                  {% elif task.priority == "OPTIONAL" %}
+                    <span class="badge bg-secondary">
+
+                  {% endif %}
+                    {{ task.get_priority_display }}
                   </span>
                 </p>
                 <p class="text-sm mb-0">
                   Assignee:
-                  {{ task.assignee }}
+                  {% for worker in task.assignees.all %}
+                    <span class="badge bg-secondary me-1">
+                      {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
+                    </span>
+                  {% empty %}
+                    <span class="text-muted">Unassigned</span>
+                  {% endfor %}
                 </p>
               </div>
             </div>

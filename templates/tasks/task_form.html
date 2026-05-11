@@ -1,14 +1,14 @@
 {% extends 'layouts/base-fullscreen.html' %}
 {% load crispy_forms_filters %}
 
-{% block title %} Log In {% endblock title %}
+{% block title %} Task Form {% endblock title %}
 
 {% block body_class %} sign-in-illustration {% endblock body_class %}
 
 {% block content %}
 
 <section>
-  <div class="page-header section-height-100">
+  <div class="page-header section-height-100 pt-8">
     <div class="container">
       <div class="row">
 
@@ -17,14 +17,13 @@
           <div class="card card-plain">
 
             <div class="card-header pb-0 text-left">
-              <h4 class="font-weight-bolder">Log In</h4>
+
+              <h4 class="font-weight-bolder">
+                Task
+              </h4>
 
               <p class="mb-0">
-                {% if msg %}
-                  {{ msg|safe }}
-                {% else %}
-                  Log in to manage tasks and projects
-                {% endif %}
+                {{ object|yesno:"Update,Create" }} task
               </p>
 
             </div>
@@ -36,14 +35,50 @@
                 {% csrf_token %}
 
                 <div class="mb-3">
-                  {{ form|crispy }}
+                  {{ form.name|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.description|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.deadline|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.status|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.priority|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.task_type|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.assignees|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.project|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                  {{ form.tags|as_crispy_field }}
                 </div>
 
                 <div class="text-center">
+
                   <button type="submit"
                           class="btn btn-lg bg-gradient-primary w-100 mt-4 mb-0">
-                    Log In
+
+                    Save Task
+
                   </button>
+
                 </div>
 
               </form>
@@ -63,9 +98,11 @@
                  alt="pattern">
 
             <div class="position-relative">
+
               <img class="max-width-500 w-100 position-relative z-index-2"
                    src="{{ ASSETS_ROOT }}/img/illustrations/chat.png"
                    alt="illustration">
+
             </div>
 
             <h4 class="mt-5 text-white font-weight-bolder">
@@ -73,7 +110,7 @@
             </h4>
 
             <p class="text-white">
-              Manage tasks, projects, teams in one place.
+              Organize your work efficiently
             </p>
 
           </div>
@@ -86,7 +123,3 @@
 </section>
 
 {% endblock content %}
-
-{% block javascripts %}
-  <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js" type="text/javascript"></script>
-{% endblock javascripts %}

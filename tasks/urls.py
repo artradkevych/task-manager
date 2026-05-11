@@ -2,11 +2,6 @@ from django.urls import path
 
 from tasks.views import (
     index,
-    TaskListView,
-    TaskDetailView,
-    TaskCreateView,
-    TaskUpdateView,
-    TaskDeleteView,
     TagListView,
     TagCreateView,
     TagUpdateView,
@@ -15,8 +10,20 @@ from tasks.views import (
     TaskTypeCreateView,
     TaskTypeUpdateView,
     TaskTypeDeleteView,
+    TaskListView,
+    TaskDetailView,
+    TaskCreateView,
+    TaskUpdateView,
+    TaskDeleteView,
+    ProjectListView,
+    ProjectDetailView,
+    ProjectUpdateView,
+    ProjectDeleteView,
+    ProjectCreateView,
     send_task_to_review,
     approve_task,
+    add_task_to_project,
+    remove_task_from_project
 )
 
 urlpatterns = [
@@ -24,41 +31,6 @@ urlpatterns = [
         "",
         index,
         name="index"
-    ),
-    path(
-        "tasks/",
-        TaskListView.as_view(),
-        name="task-list",
-    ),
-    path(
-        "tasks/<int:pk>/",
-        TaskDetailView.as_view(),
-        name="task-detail",
-    ),
-    path(
-        "tasks/<int:pk>/send-review/",
-        send_task_to_review,
-        name="send_to_review"
-    ),
-    path(
-        "tasks/<int:pk>/approve/",
-        approve_task,
-        name="approve"
-    ),
-    path(
-        "tasks/<int:pk>/update/",
-        TaskUpdateView.as_view(),
-        name="task-update",
-    ),
-    path(
-        "tasks/<int:pk>/delete/",
-        TaskDeleteView.as_view(),
-        name="task-delete",
-    ),
-    path(
-        "tasks/create/",
-        TaskCreateView.as_view(),
-        name="task-create",
     ),
     path(
         "tags/",
@@ -99,6 +71,76 @@ urlpatterns = [
         "tasktypes/create/",
         TaskTypeCreateView.as_view(),
         name="task_type-create",
+    ),
+    path(
+        "tasks/",
+        TaskListView.as_view(),
+        name="task-list",
+    ),
+    path(
+        "tasks/<int:pk>/",
+        TaskDetailView.as_view(),
+        name="task-detail",
+    ),
+    path(
+        "tasks/<int:pk>/send-review/",
+        send_task_to_review,
+        name="send_to_review"
+    ),
+    path(
+        "tasks/<int:pk>/approve/",
+        approve_task,
+        name="approve"
+    ),
+    path(
+        "tasks/<int:pk>/update/",
+        TaskUpdateView.as_view(),
+        name="task-update",
+    ),
+    path(
+        "tasks/<int:pk>/delete/",
+        TaskDeleteView.as_view(),
+        name="task-delete",
+    ),
+    path(
+        "tasks/create/",
+        TaskCreateView.as_view(),
+        name="task-create",
+    ),
+    path(
+        "projects/",
+        ProjectListView.as_view(),
+        name="project-list",
+    ),
+    path(
+        "projects/<int:pk>/",
+        ProjectDetailView.as_view(),
+        name="project-detail",
+    ),
+    path(
+        "projects/<int:pk>/update/",
+        ProjectUpdateView.as_view(),
+        name="project-update",
+    ),
+    path(
+        "projects/<int:pk>/delete/",
+        ProjectDeleteView.as_view(),
+        name="project-delete",
+    ),
+    path(
+        "projects/<int:pk>/add-task/",
+        add_task_to_project,
+        name="project-add-task",
+    ),
+    path(
+        "projects/<int:pk>/remove-task/<int:task_id>/",
+        remove_task_from_project,
+        name="project-remove-task",
+    ),
+    path(
+        "projects/create/",
+        ProjectCreateView.as_view(),
+        name="project-create",
     ),
 ]
 

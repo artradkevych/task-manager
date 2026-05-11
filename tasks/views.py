@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -13,6 +13,7 @@ from tasks.models import (
     Worker,
     Tag,
     TaskType,
+    Project,
 )
 
 
@@ -53,35 +54,6 @@ def index(request):
     }
 
     return render(request, "tasks/index.html", context=context)
-
-
-class TaskListView(LoginRequiredMixin, generic.ListView):
-    model = Task
-    context_object_name = "task_list"
-    paginate_by = 6
-
-
-class TaskDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Task
-
-
-class TaskCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Task
-    form_class = TaskForm
-    success_url = reverse_lazy("tasks:task-list")
-
-
-class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
-    model = Task
-    form_class = TaskForm
-
-    def get_success_url(self):
-        return reverse_lazy("tasks:task-detail", kwargs={"pk": self.object.pk})
-
-
-class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = Task
-    success_url = reverse_lazy("tasks:task-list")
 
 
 class TagListView(LoginRequiredMixin, generic.ListView):
@@ -134,8 +106,78 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:task_type-list")
 
 
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    context_object_name = "task_list"
+    paginate_by = 6
+
+
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy("tasks:task-list")
+
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    form_class = TaskForm
+
+    def get_success_url(self):
+        return reverse_lazy("tasks:task-detail", kwargs={"pk": self.object.pk})
+
+
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Task
+
+    def get_success_url(self):
+        return reverse_lazy("tasks:task-detail", kwargs={"pk": self.object.pk})
+
+
+class ProjectListView(LoginRequiredMixin, generic.ListView):
+    model = Project
+    context_object_name = "project_list"
+    paginate_by = 6
+
+
+class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Project
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["available_tasks"] = Task.objects.exclude(
+            project=self.object
+        )
+
+        return context
+
+
+class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Project
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:project-list")
+
+
+class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Project
+    fields = "__all__"
+
+    def get_success_url(self):
+        return reverse_lazy("tasks:project-detail", kwargs={"pk": self.object.pk})
+
+
+class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Project
+    success_url = reverse_lazy("tasks:project-list")
+
+
 @login_required
-def send_task_to_review(request: HttpRequest, pk):
+def send_task_to_review(request: HttpRequest, pk: int):
     task = Task.objects.get(id=pk)
     if (
         request.user in task.assignees.all()
@@ -149,7 +191,7 @@ def send_task_to_review(request: HttpRequest, pk):
 
 
 @login_required
-def approve_task(request: HttpRequest, pk):
+def approve_task(request: HttpRequest, pk: int):
     task = Task.objects.get(id=pk)
     if (
         request.user.is_staff
@@ -160,3 +202,29 @@ def approve_task(request: HttpRequest, pk):
     return HttpResponseRedirect(
         reverse_lazy("tasks:task-detail", args=[pk])
     )
+
+@login_required
+def add_task_to_project(request: HttpRequest, pk: int):
+    project = get_object_or_404(Project, pk=pk)
+
+    if request.method == "POST":
+        task_id = request.POST.get("task_id")
+
+        if task_id:
+            task = get_object_or_404(Task, pk=task_id)
+            task.project = project
+            task.save()
+
+    return redirect("tasks:project-detail", pk=pk)
+
+@login_required
+def remove_task_from_project(request, pk: int, task_id: int):
+    task = get_object_or_404(Task, pk=task_id)
+
+    unassigned_project = Project.objects.get(name="Unassigned")
+
+    if unassigned_project:
+        task.project = unassigned_project
+        task.save()
+
+    return redirect("tasks:project-detail", pk=pk)

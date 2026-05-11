@@ -1,0 +1,77 @@
+{% extends "layouts/base-presentation.html" %}
+
+{% block title %}
+  Projects List
+{% endblock %}
+
+{% block content %}
+
+<section class="py-7">
+  <div class="container">
+
+    <div class="row mb-4 align-items-center">
+
+      <div class="col-lg-8">
+
+        <h2 class="mb-1">
+          Projects
+        </h2>
+
+        <p class="text-muted mb-0">
+          All projects in the system
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="row gx-4">
+
+      {% for project in project_list %}
+
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card shadow-lg h-100">
+
+          <div class="card-body">
+
+            <h5 class="mb-2">
+              {{ project.name }}
+            </h5>
+
+            <p class="text-sm text-muted mb-2">
+              {{ project.team.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
+            </p>
+
+            <a href="{% url "tasks:project-detail" pk=project.id %}"
+               class="btn btn-outline-primary btn-sm mb-0">
+              View
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {% empty %}
+
+      <div class="col-12 text-center">
+
+        <p class="lead">
+          No projects available
+        </p>
+
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}

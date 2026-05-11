@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from tasks.models import Task, Tag
+from tasks.models import Task, Tag, Project
 
 
 class TaskForm(forms.ModelForm):

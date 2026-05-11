@@ -73,7 +73,7 @@ class Task(models.Model):
     project = models.ForeignKey(
         "Project",
         related_name="tasks",
-        on_delete=models.PROTECT
+        on_delete=models.CASCADE
     )
     tags = models.ManyToManyField(
         "Tag",
@@ -92,7 +92,7 @@ class Team(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    workers = models.ManyToManyField(Worker,related_name="teams")
+    workers = models.ManyToManyField(Worker, related_name="teams")
 
     @property
     def workers_count(self) -> int:

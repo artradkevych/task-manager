@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from tasks.forms import TaskForm, WorkerCreationForm
+from tasks.forms import TaskForm, WorkerCreationForm, TeamForm
 from tasks.models import (
     Task,
     Team,
@@ -238,6 +238,42 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:worker-list")
 
 
+class TeamListView(LoginRequiredMixin, generic.ListView):
+    model = Team
+    context_object_name = "team_list"
+    paginate_by = 6
+
+
+class TeamDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Team
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["projects"] = Project.objects.all()
+
+        return context
+
+
+class TeamCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Team
+    form_class = TeamForm
+    success_url = reverse_lazy("tasks:team-list")
+
+
+class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Team
+    form_class = TeamForm
+
+    def get_success_url(self):
+        return reverse_lazy("tasks:team-detail", kwargs={"pk": self.object.pk})
+
+
+class TeamDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Team
+    success_url = reverse_lazy("tasks:team-list")
+
+
 @login_required
 def send_task_to_review(request: HttpRequest, pk: int):
     task = Task.objects.get(id=pk)
@@ -315,3 +351,55 @@ def remove_assignee(request: HttpRequest, pk: int, user_id: int):
         task.assignees.remove(worker)
 
     return redirect("tasks:task-detail", pk=pk)
+
+
+@login_required
+def team_remove_project(request: HttpRequest, pk: int, project_id: int):
+    project = get_object_or_404(Project, pk=project_id)
+
+    blank_team = Team.objects.get(name="Blank")
+
+    if blank_team:
+        project.team = blank_team
+        project.save()
+
+    return redirect("tasks:team-detail", pk=pk)
+
+
+@login_required
+def toggle_assign_to_team(request: HttpRequest, pk: int):
+    worker = Worker.objects.get(id=request.user.id)
+    if (
+        Team.objects.get(id=pk) in worker.teams.all()
+    ):
+        worker.teams.remove(pk)
+    else:
+        worker.teams.add(pk)
+    return HttpResponseRedirect(reverse_lazy("tasks:team-detail", args=[pk]))
+
+
+@login_required
+def add_project_to_team(request: HttpRequest, pk: int):
+    team = get_object_or_404(Team, pk=pk)
+
+    if request.method == "POST":
+        project_id = request.POST.get("project_id")
+
+        if project_id:
+            project = get_object_or_404(Project, pk=project_id)
+            project.team = team
+            project.save()
+
+    return redirect("tasks:team-detail", pk=pk)
+
+@login_required
+def remove_project_from_team(request, pk: int, task_id: int):
+    project = get_object_or_404(Project, pk=task_id)
+
+    blank_team = Team.objects.get(name="Blank")
+
+    if blank_team:
+        project.team = blank_team
+        project.save()
+
+    return redirect("tasks:team-detail", pk=pk)

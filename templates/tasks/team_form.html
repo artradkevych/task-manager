@@ -1,7 +1,7 @@
 {% extends 'layouts/base-fullscreen.html' %}
 {% load crispy_forms_filters %}
 
-{% block title %} Project Form {% endblock title %}
+{% block title %} Team Form {% endblock title %}
 
 {% block body_class %} sign-in-illustration {% endblock body_class %}
 
@@ -11,7 +11,6 @@
   <div class="page-header section-height-100 pt-8">
     <div class="container">
       <div class="row">
-
         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
 
           <div class="card card-plain">
@@ -19,11 +18,11 @@
             <div class="card-header pb-0 text-left">
 
               <h4 class="font-weight-bolder">
-                Project
+                Team
               </h4>
 
               <p class="mb-0">
-                {{ object|yesno:"Update,Create" }} project
+                {{ object|yesno:"Update,Create" }} team
               </p>
 
             </div>
@@ -43,20 +42,15 @@
                 </div>
 
                 <div class="mb-3">
-                  {{ form.is_active|as_crispy_field }}
+                  {{ form.workers|as_crispy_field }}
                 </div>
-
-                <div class="mb-3">
-                  {{ form.team|as_crispy_field }}
-                </div>
-
 
                 <div class="text-center">
 
                   <button type="submit"
                           class="btn btn-lg bg-gradient-primary w-100 mt-4 mb-0">
 
-                    Save Project
+                    Save Team
 
                   </button>
 

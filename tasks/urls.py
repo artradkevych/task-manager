@@ -27,12 +27,21 @@ from tasks.views import (
     WorkerCreateView,
     WorkerUpdateView,
     WorkerDeleteView,
+    TeamListView,
+    TeamDetailView,
+    TeamCreateView,
+    TeamUpdateView,
+    TeamDeleteView,
     send_task_to_review,
     approve_task,
     add_assignee,
     remove_assignee,
     add_task_to_project,
     remove_task_from_project,
+    team_remove_project,
+    toggle_assign_to_team,
+    add_project_to_team,
+    remove_project_from_team
 )
 
 urlpatterns = [
@@ -195,6 +204,51 @@ urlpatterns = [
         "workers/<int:pk>/delete/",
         WorkerDeleteView.as_view(),
         name="worker-delete",
+    ),
+    path(
+        "teams/",
+        TeamListView.as_view(),
+        name="team-list",
+    ),
+    path(
+        "teams/<int:pk>/",
+        TeamDetailView.as_view(),
+        name="team-detail"
+    ),
+    path(
+        "teams/<int:pk>/update/",
+        TeamUpdateView.as_view(),
+        name="team-update",
+    ),
+    path(
+        "teams/create/",
+        TeamCreateView.as_view(),
+        name="team-create",
+    ),
+    path(
+        "teams/<int:pk>/delete/",
+        TeamDeleteView.as_view(),
+        name="team-delete",
+    ),
+    path(
+        "teams/<int:pk>/remove-project/<int:project_id>/",
+        team_remove_project,
+        name="team-remove-project",
+    ),
+    path(
+        "teams/<int:pk>/toggle-assign/",
+        toggle_assign_to_team,
+        name="toggle-team-assign",
+    ),
+    path(
+        "teams/<int:pk>/add-project/",
+        add_project_to_team,
+        name="team-add-project",
+    ),
+    path(
+        "teams/<int:pk>/remove-project/<int:project_id>/",
+        remove_project_from_team,
+        name="team-remove-project",
     ),
 ]
 

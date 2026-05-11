@@ -1,7 +1,7 @@
 {% extends "layouts/base-presentation.html" %}
 
 {% block title %}
-  Task Detail
+  Team Detail
 {% endblock %}
 
 {% block content %}
@@ -11,50 +11,40 @@
 
     <div class="row justify-content-center">
 
-      <div class="col-lg-8">
+    <div class="col-lg-8">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <a href="{% url "tasks:project-list" %}"
+          <a href="{% url "tasks:team-list" %}"
              class="btn btn-outline-secondary btn-sm">
-            ← Back to Projects
+            ← Back to Teams
           </a>
-
           <button class="btn btn-primary btn-sm"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#addTaskForm"
                   aria-expanded="false"
                   aria-controls="addTaskForm">
-            + Add Task
+            + Assign Project
           </button>
-
         </div>
       <div class="collapse mb-4" id="addTaskForm">
         <div class="card card-body shadow-sm">
-
-          <form method="post" action="{% url 'tasks:project-add-task' project.id %}">
+          <form method="post" action="{% url "tasks:team-add-project" team.id %}">
             {% csrf_token %}
-
-            <select name="task_id" class="form-select mb-3">
-
-              {% for task in available_tasks %}
-                <option value="{{ task.id }}">
-                  {{ task.name }}
+            <select name="project_id" class="form-select mb-3">
+              {% for project in projects %}
+                <option value="{{ project.id }}">
+                  {{ project.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
                 </option>
               {% empty %}
-                <option disabled>No available tasks</option>
+                <option disabled>No available projects</option>
               {% endfor %}
-
             </select>
-
             <button class="btn btn-success w-100">
-              Add Task
+              Assign Project
             </button>
-
           </form>
-
         </div>
-
       </div>
 
         <div class="card shadow-lg">
@@ -66,33 +56,30 @@
               <div>
 
                 <h2 class="mb-1">
-                  {{ project.name }}
+                  {{ team.name }}
                 </h2>
 
-                <p class="text-muted mb-0">
-                    {{ project.team.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
-                </p>
-              <br>
-
               <p class="text-sm mb-2">
-                <strong>Tasks:</strong>
+                <strong>Projects:</strong>
               </p>
 
               <div class="d-flex flex-column gap-2">
 
-                {% for task in project.tasks.all %}
+                {% for project in team.projects.all %}
                   <div class="d-flex justify-content-between align-items-center">
                     <span class="badge bg-secondary me-1">
-                      {{ task.name }} • {{ task.get_status_display }} • {{ task.get_priority_display }}
+                      {{ project.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
                     </span>
-                    <a href="{% url 'tasks:project-remove-task' pk=project.id task_id=task.id %}"
-                       class="badge bg-danger me-1">
-                      🗑️
-                    </a>
+                    {% if user.is_staff %}
+                      <a href="{% url "tasks:team-remove-project" pk=team.id project_id=project.id %}"
+                         class="badge bg-danger me-1">
+                        🗑️
+                      </a>
+                    {% endif %}
                   </div>
 
                 {% empty %}
-                  <span class="text-muted">There are no tasks yet</span>
+                  <span class="text-muted">There are no projects yet</span>
                 {% endfor %}
               </div>
 
@@ -100,12 +87,12 @@
 
               <div class="d-flex gap-2">
 
-                <a href="{% url "tasks:project-update" pk=project.id %}"
+                <a href="{% url "tasks:team-update" pk=team.id %}"
                    class="btn btn-outline-primary btn-sm">
                   Update
                 </a>
 
-                <a href="{% url "tasks:project-delete" pk=project.id %}"
+                <a href="{% url "tasks:team-delete" pk=team.id %}"
                    class="btn btn-outline-danger btn-sm">
                   Delete
                 </a>
@@ -133,8 +120,24 @@
             <hr>
 
             <div class="col-md-6 mb-3">
-              <p class="text-sm mb-1"><strong>Team members:</strong></p>
-                {% for worker in project.team.workers.all %}
+              <div class="d-flex justify-content-between align-items-start mb-2">
+              <p class="text-sm mb-0">
+                <strong>Team members:</strong>
+              </p>
+              {% if team in user.teams.all %}
+                <a href="{% url "tasks:toggle-team-assign" pk=team.id %}"
+                   class="badge bg-danger btn-sm">
+                  Leave the team
+                </a>
+              {% else %}
+                <a href="{% url "tasks:toggle-team-assign" pk=team.id %}"
+                   class="badge bg-primary btn-sm">
+                  Join the team
+                </a>
+              {% endif %}
+            </div>
+
+                {% for worker in team.workers.all %}
                   <span class="badge bg-secondary me-1">
                     {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
                   </span>

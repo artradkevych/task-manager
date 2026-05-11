@@ -1,7 +1,7 @@
 {% extends "layouts/base-presentation.html" %}
 
 {% block title %}
-  Delete Task Type
+  Delete Worker
 {% endblock %}
 
 {% block content %}
@@ -22,8 +22,8 @@
             </h4>
 
             <p class="mb-4">
-              Are you sure you want to delete task type:
-              <strong>{{ tasktype.name }}</strong> ?
+              Are you sure you want to delete worker:
+              <strong>{{ worker.username }}</strong> ?
             </p>
 
             <form method="post">
@@ -32,14 +32,14 @@
 
               <div class="d-flex justify-content-center gap-3">
 
-                <a href="{% url 'tasks:task_type-list' %}"
+                <a href="{% url "tasks:worker-detail" pk=worker.id %}"
                    class="btn btn-outline-secondary mb-0">
                   Cancel
                 </a>
 
                 <button type="submit"
                         class="btn bg-gradient-danger mb-0">
-                  Delete Task Type
+                  Delete Worker
                 </button>
 
               </div>

@@ -9,7 +9,6 @@ from tasks.views import (
     TaskTypeListView,
     TaskTypeCreateView,
     TaskTypeUpdateView,
-    TaskTypeDeleteView,
     TaskListView,
     TaskDetailView,
     TaskCreateView,
@@ -20,10 +19,20 @@ from tasks.views import (
     ProjectUpdateView,
     ProjectDeleteView,
     ProjectCreateView,
+    PositionListView,
+    PositionCreateView,
+    PositionUpdateView,
+    WorkerListView,
+    WorkerDetailView,
+    WorkerCreateView,
+    WorkerUpdateView,
+    WorkerDeleteView,
     send_task_to_review,
     approve_task,
+    add_assignee,
+    remove_assignee,
     add_task_to_project,
-    remove_task_from_project
+    remove_task_from_project,
 )
 
 urlpatterns = [
@@ -63,11 +72,6 @@ urlpatterns = [
         name="task_type-update",
     ),
     path(
-        "tasktypes/<int:pk>/delete/",
-        TaskTypeDeleteView.as_view(),
-        name="task_type-delete",
-    ),
-    path(
         "tasktypes/create/",
         TaskTypeCreateView.as_view(),
         name="task_type-create",
@@ -101,6 +105,16 @@ urlpatterns = [
         "tasks/<int:pk>/delete/",
         TaskDeleteView.as_view(),
         name="task-delete",
+    ),
+    path(
+        "tasks/<int:pk>/add-assignee/",
+        add_assignee,
+        name="add-assignee",
+    ),
+    path(
+        "tasks/<int:pk>/remove-assignee/<int:user_id>/",
+        remove_assignee,
+        name="remove-assignee",
     ),
     path(
         "tasks/create/",
@@ -141,6 +155,46 @@ urlpatterns = [
         "projects/create/",
         ProjectCreateView.as_view(),
         name="project-create",
+    ),
+    path(
+        "positions/",
+        PositionListView.as_view(),
+        name="position-list",
+    ),
+    path(
+        "positions/<int:pk>/update/",
+        PositionUpdateView.as_view(),
+        name="position-update",
+    ),
+    path(
+        "positions/create/",
+        PositionCreateView.as_view(),
+        name="position-create",
+    ),
+    path(
+        "workers/",
+        WorkerListView.as_view(),
+        name="worker-list",
+    ),
+    path(
+        "workers/<int:pk>/",
+        WorkerDetailView.as_view(),
+        name="worker-detail",
+    ),
+    path(
+        "workers/<int:pk>/update/",
+        WorkerUpdateView.as_view(),
+        name="worker-update",
+    ),
+    path(
+        "workers/create/",
+        WorkerCreateView.as_view(),
+        name="worker-create",
+    ),
+    path(
+        "workers/<int:pk>/delete/",
+        WorkerDeleteView.as_view(),
+        name="worker-delete",
     ),
 ]
 

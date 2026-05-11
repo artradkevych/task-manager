@@ -1,7 +1,7 @@
 {% extends "layouts/base-presentation.html" %}
 
 {% block title %}
-  Tags List
+  Positions List
 {% endblock %}
 
 {% block content %}
@@ -11,26 +11,26 @@
     <div class="row mb-4 align-items-center">
       <div class="col-lg-8">
         <h2 class="mb-1">
-          Task Types
+          Positions
         </h2>
         <p class="text-muted mb-0">
-          All task types in the system
+          All positions in the system
         </p>
       </div>
     </div>
     <div class="row gx-4">
       <div class="d-flex flex-wrap gap-2">
-        {% for task_type in task_type_list %}
+        {% for position in position_list %}
           <span class="badge bg-dark px-3 py-2 d-flex align-items-center gap-2">
-            {{ task_type.name }}
-            <a href="{% url "tasks:task_type-update" pk=task_type.id %}"
+            {{ position.name }}
+            <a href="{% url "tasks:position-update" pk=position.id %}"
                class="text-warning ms-1"
                title="Edit">
               ✏️
             </a>
           </span>
         {% empty %}
-          <p class="text-muted">No task types yet</p>
+          <p class="text-muted">No position yet</p>
         {% endfor %}
       </div>
     </div>

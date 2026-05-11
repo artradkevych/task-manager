@@ -14,18 +14,55 @@
       <div class="col-lg-8">
 
         <div class="mb-3">
-          <a href="{% url 'tasks:task-list' %}"
-             class="btn btn-outline-secondary btn-sm">
-            ← Back to Tasks
-          </a>
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="{% url "tasks:task-list" %}"
+               class="btn btn-outline-secondary btn-sm">
+              ← Back to Tasks
+            </a>
+            <button class="btn btn-sm btn-outline-primary"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#addAssignee"
+                    aria-expanded="false">
+              + Add Assignee
+            </button>
+
+          </div>
+          <div class="collapse mt-3" id="addAssignee">
+
+            <div class="card card-body border shadow-sm">
+
+              <form method="post"
+                    action="{% url 'tasks:add-assignee' pk=task.id %}">
+
+                {% csrf_token %}
+
+                <label class="form-label text-sm mb-2">
+                  Select worker
+                </label>
+
+                <select name="worker_id" class="form-select mb-3">
+
+                  {% for worker in available_workers %}
+                    <option value="{{ worker.id }}">
+                      {{ worker.username }}
+                    </option>
+                  {% empty %}
+                    <option disabled>No available workers</option>
+                  {% endfor %}
+
+                </select>
+
+                <button class="btn btn-success w-100">
+                  Add
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-
         <div class="card shadow-lg">
-
           <div class="card-body p-5">
-
             <div class="d-flex justify-content-between align-items-start mb-4">
-
               <div>
 
                 <h2 class="mb-1">
@@ -111,8 +148,15 @@
                   <p class="text-sm mb-1"><strong>Assignees:</strong></p>
                     {% for worker in task.assignees.all %}
                       <span class="badge bg-secondary me-1">
-                        {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
+                        {{ worker.username }}
+                        {% if request.user.is_staff %}
+                          <a href="{% url 'tasks:remove-assignee' pk=task.id user_id=worker.id %}"
+                             class="text-danger ms-1">
+                            x
+                          </a>
+                        {% endif %}
                       </span>
+
                     {% empty %}
                       <span class="text-muted">Unassigned</span>
                     {% endfor %}

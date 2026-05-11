@@ -29,6 +29,38 @@
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link d-flex align-items-center"
                    data-bs-toggle="dropdown">
+                  TaskTypes
+                  <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
+                       class="ms-1">
+                </a>
+                <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
+                  <a class="dropdown-item border-radius-md" href="{% url "tasks:task_type-list" %}">
+                    List TaskTypes
+                  </a>
+                  <a class="dropdown-item border-radius-md" href="{% url "tasks:task_type-create" %}">
+                    Create TaskType
+                  </a>
+                </div>
+              </li>
+              <li class="nav-item dropdown dropdown-hover mx-2">
+                <a class="nav-link d-flex align-items-center"
+                   data-bs-toggle="dropdown">
+                  Tags
+                  <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
+                       class="ms-1">
+                </a>
+                <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
+                  <a class="dropdown-item border-radius-md" href="{% url "tasks:tag-list" %}">
+                    List Tags
+                  </a>
+                  <a class="dropdown-item border-radius-md" href="{% url "tasks:tag-create" %}">
+                    Create Tag
+                  </a>
+                </div>
+              </li>
+              <li class="nav-item dropdown dropdown-hover mx-2">
+                <a class="nav-link d-flex align-items-center"
+                   data-bs-toggle="dropdown">
                   Tasks
                   <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
                        class="ms-1">
@@ -61,16 +93,16 @@
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link d-flex align-items-center"
                    data-bs-toggle="dropdown">
-                  Teams
+                  Positions
                   <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
                   <a class="dropdown-item border-radius-md" href="#">
-                    List Teams
+                    List Positions
                   </a>
                   <a class="dropdown-item border-radius-md" href="#">
-                    Create Team
+                    Create Position
                   </a>
                 </div>
               </li>
@@ -90,40 +122,23 @@
                   </a>
                 </div>
               </li>
-
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link d-flex align-items-center"
                    data-bs-toggle="dropdown">
-                  Tags
+                  Teams
                   <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
                   <a class="dropdown-item border-radius-md" href="#">
-                    List Tags
+                    List Teams
                   </a>
                   <a class="dropdown-item border-radius-md" href="#">
-                    Create Tag
+                    Create Team
                   </a>
                 </div>
               </li>
 
-              <li class="nav-item dropdown dropdown-hover mx-2">
-                <a class="nav-link d-flex align-items-center"
-                   data-bs-toggle="dropdown">
-                  Positions
-                  <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg"
-                       class="ms-1">
-                </a>
-                <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="#">
-                    List Positions
-                  </a>
-                  <a class="dropdown-item border-radius-md" href="#">
-                    Create Position
-                  </a>
-                </div>
-              </li>
               <li class="nav-item ms-auto d-flex align-items-center">
               {% if user.is_authenticated %}
                 <a class="nav-link" href="#">

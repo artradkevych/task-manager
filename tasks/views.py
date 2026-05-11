@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -9,7 +10,9 @@ from tasks.models import (
     Task,
     Project,
     Team,
-    Worker
+    Worker,
+    Tag,
+    TaskType,
 )
 
 
@@ -79,3 +82,81 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("tasks:task-list")
+
+
+class TagListView(LoginRequiredMixin, generic.ListView):
+    model = Tag
+    context_object_name = "tag_list"
+    paginate_by = 30
+
+
+class TagCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:tag-list")
+
+
+class TagUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:tag-list")
+
+
+class TagDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Tag
+    success_url = reverse_lazy("tasks:tag-list")
+
+
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+    model = TaskType
+    context_object_name = "task_type_list"
+    template_name = "tasks/task_type_list.html"
+    paginate_by = 30
+
+
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = TaskType
+    fields = "__all__"
+    template_name = "tasks/task_type_form.html"
+    success_url = reverse_lazy("tasks:task_type-list")
+
+
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = TaskType
+    fields = "__all__"
+    template_name = "tasks/task_type_form.html"
+    success_url = reverse_lazy("tasks:task_type-list")
+
+
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = TaskType
+    template_name = "tasks/task_type_confirm_delete.html"
+    success_url = reverse_lazy("tasks:task_type-list")
+
+
+@login_required
+def send_task_to_review(request: HttpRequest, pk):
+    task = Task.objects.get(id=pk)
+    if (
+        request.user in task.assignees.all()
+        and task.status not in ("DONE", "IN_REVIEW")
+    ):
+        task.status = "IN_REVIEW"
+        task.save()
+    return HttpResponseRedirect(
+        reverse_lazy("tasks:task-detail", args=[pk])
+    )
+
+
+@login_required
+def approve_task(request: HttpRequest, pk):
+    task = Task.objects.get(id=pk)
+    if (
+        request.user.is_staff
+        and task.status == "IN_REVIEW"
+    ):
+        task.status = "DONE"
+        task.save()
+    return HttpResponseRedirect(
+        reverse_lazy("tasks:task-detail", args=[pk])
+    )

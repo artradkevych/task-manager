@@ -122,13 +122,22 @@
                 {{ task.get_priority_display }}
               </span>
             </p>
-            {% for worker in task.assignees.all %}
-              <span class="badge bg-secondary me-1">
-                {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
-              </span>
-            {% empty %}
-              <span class="text-muted">Unassigned</span>
-            {% endfor %}
+            <p class="text-sm mb-0">
+              Assignee:
+              {% for worker in task.assignees.all %}
+                <span class="badge bg-secondary me-1">
+                  {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
+                </span>
+            </p>
+            <br>
+            <a href="{% url "tasks:task-detail" pk=task.id %}"
+               class="btn btn-outline-primary btn-sm mb-0">
+              View
+            </a>
+              {% empty %}
+                <span class="text-muted">Unassigned</span>
+              {% endfor %}
+
           </div>
         </div>
       </div>
@@ -199,10 +208,15 @@
                     <span class="badge bg-secondary me-1">
                       {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
                     </span>
+                </p>
+                <br>
+                <a href="{% url "tasks:task-detail" pk=task.id %}"
+                   class="btn btn-outline-primary btn-sm mb-0">
+                  View
+                </a>
                   {% empty %}
                     <span class="text-muted">Unassigned</span>
                   {% endfor %}
-                </p>
               </div>
             </div>
           </div>

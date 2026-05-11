@@ -1,7 +1,7 @@
 {% extends 'layouts/base-fullscreen.html' %}
 {% load crispy_forms_filters %}
 
-{% block title %} Task Form {% endblock title %}
+{% block title %} Tag Form {% endblock title %}
 
 {% block body_class %} sign-in-illustration {% endblock body_class %}
 
@@ -19,11 +19,11 @@
             <div class="card-header pb-0 text-left">
 
               <h4 class="font-weight-bolder">
-                Task
+                Tag
               </h4>
 
               <p class="mb-0">
-                {{ task|yesno:"Update,Create" }} task
+                {{ object|yesno:"Update,Create" }} tag
               </p>
 
             </div>
@@ -38,44 +38,12 @@
                   {{ form.name|as_crispy_field }}
                 </div>
 
-                <div class="mb-3">
-                  {{ form.description|as_crispy_field }}
-                </div>
-
-                <div class="mb-3">
-                  {{ form.deadline|as_crispy_field }}
-                </div>
-
-                <div class="mb-3">
-                  {{ form.status|as_crispy_field }}
-                </div>
-
-                <div class="mb-3">
-                  {{ form.priority|as_crispy_field }}
-                </div>
-
-                <div class="mb-3">
-                  {{ form.task_type|as_crispy_field }}
-                </div>
-
-                <div class="mb-3">
-                  {{ form.assignees|as_crispy_field }}
-                </div>
-
-                <div class="mb-3">
-                  {{ form.project|as_crispy_field }}
-                </div>
-
-                <div class="mb-3">
-                  {{ form.tags|as_crispy_field }}
-                </div>
-
                 <div class="text-center">
 
                   <button type="submit"
                           class="btn btn-lg bg-gradient-primary w-100 mt-4 mb-0">
 
-                    Save Task
+                    Save Tag
 
                   </button>
 

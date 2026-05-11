@@ -7,6 +7,16 @@ from tasks.views import (
     TaskCreateView,
     TaskUpdateView,
     TaskDeleteView,
+    TagListView,
+    TagCreateView,
+    TagUpdateView,
+    TagDeleteView,
+    TaskTypeListView,
+    TaskTypeCreateView,
+    TaskTypeUpdateView,
+    TaskTypeDeleteView,
+    send_task_to_review,
+    approve_task,
 )
 
 urlpatterns = [
@@ -26,6 +36,16 @@ urlpatterns = [
         name="task-detail",
     ),
     path(
+        "tasks/<int:pk>/send-review/",
+        send_task_to_review,
+        name="send_to_review"
+    ),
+    path(
+        "tasks/<int:pk>/approve/",
+        approve_task,
+        name="approve"
+    ),
+    path(
         "tasks/<int:pk>/update/",
         TaskUpdateView.as_view(),
         name="task-update",
@@ -39,6 +59,46 @@ urlpatterns = [
         "tasks/create/",
         TaskCreateView.as_view(),
         name="task-create",
+    ),
+    path(
+        "tags/",
+        TagListView.as_view(),
+        name="tag-list",
+    ),
+    path(
+        "tags/<int:pk>/update/",
+        TagUpdateView.as_view(),
+        name="tag-update",
+    ),
+    path(
+        "tags/<int:pk>/delete/",
+        TagDeleteView.as_view(),
+        name="tag-delete",
+    ),
+    path(
+        "tags/create/",
+        TagCreateView.as_view(),
+        name="tag-create",
+    ),
+    path(
+        "tasktypes/",
+        TaskTypeListView.as_view(),
+        name="task_type-list",
+    ),
+    path(
+        "tasktypes/<int:pk>/update/",
+        TaskTypeUpdateView.as_view(),
+        name="task_type-update",
+    ),
+    path(
+        "tasktypes/<int:pk>/delete/",
+        TaskTypeDeleteView.as_view(),
+        name="task_type-delete",
+    ),
+    path(
+        "tasktypes/create/",
+        TaskTypeCreateView.as_view(),
+        name="task_type-create",
     ),
 ]
 

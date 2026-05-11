@@ -74,7 +74,6 @@
 
 <section class="my-5">
   <div class="container">
-
     <div class="row mb-4">
       <div class="col-lg-8 mx-auto text-center">
         <h2>My active tasks</h2>
@@ -87,42 +86,32 @@
     <div class="row">
       {% for task in latest_tasks %}
       <div class="col-md-4 mb-4">
-
         <div class="card shadow-lg h-100">
-
           <div class="card-body">
-
             <h5 class="card-title">
               {{ task.name }}
             </h5>
-
             <p class="text-sm">
               {{ task.project.name }} • {{ task.task_type.name }}
             </p>
-
             <p class="text-sm">
               Status:
               <span class="badge bg-primary">
                 {{ task.status }}
               </span>
             </p>
-
             <p class="text-sm">
               Priority:
               <span class="badge bg-warning">
                 {{ task.priority }}
               </span>
             </p>
-
             <p class="text-sm mb-0">
               Assignee:
               {{ task.assignee }}
             </p>
-
           </div>
-
         </div>
-
       </div>
       {% empty %}
       <div class="col-12 text-center">
@@ -131,6 +120,60 @@
         </p>
       </div>
       {% endfor %}
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-8 mx-auto text-center">
+          <button class="btn bg-gradient-primary"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#completedTasks"
+                  aria-expanded="false"
+                  aria-controls="completedTasks">
+            Show Completed Tasks
+          </button>
+        </div>
+
+      <div class="collapse mt-4" id="completedTasks">
+        <div class="row gx-4 px-3">
+          {% for task in completed_tasks %}
+          <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 border">
+              <div class="card-body">
+                <h5 class="card-title text-success">
+                  {{ task.name }}
+                </h5>
+                <p class="text-sm">
+                  {{ task.project.name }} • {{ task.task_type.name }}
+                </p>
+                <p class="text-sm">
+                  Status:
+                  <span class="badge bg-success">
+                    {{ task.status }}
+                  </span>
+                </p>
+                <p class="text-sm">
+                  Priority:
+                  <span class="badge bg-secondary">
+                    {{ task.priority }}
+                  </span>
+                </p>
+                <p class="text-sm mb-0">
+                  Assignee:
+                  {{ task.assignee }}
+                </p>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <div class="col-12 text-center">
+            <p class="lead">
+              No completed tasks yet.
+            </p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
 </section>

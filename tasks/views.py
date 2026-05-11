@@ -19,6 +19,10 @@ def index(request):
         assignee=request.user,
         status__in=("TODO", "IN_PROGRESS")
     )[:6]
+    completed_tasks = Task.objects.filter(
+        assignee=request.user,
+        status="DONE"
+    )[:6]
 
     context = {
         "tasks_count": tasks_count,
@@ -26,7 +30,8 @@ def index(request):
         "teams_count": teams_count,
         "workers_count": workers_count,
         "num_visits": num_visits + 1,
-        "latest_tasks": latest_tasks
+        "latest_tasks": latest_tasks,
+        "completed_tasks": completed_tasks
     }
 
     return render(request, "tasks/index.html", context=context)

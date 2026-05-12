@@ -41,7 +41,6 @@ from tasks.views import (
     team_remove_project,
     toggle_assign_to_team,
     add_project_to_team,
-    remove_project_from_team
 )
 
 urlpatterns = [
@@ -244,11 +243,6 @@ urlpatterns = [
         "teams/<int:pk>/add-project/",
         add_project_to_team,
         name="team-add-project",
-    ),
-    path(
-        "teams/<int:pk>/remove-project/<int:project_id>/",
-        remove_project_from_team,
-        name="team-remove-project",
     ),
 ]
 

@@ -1,4 +1,5 @@
 {% extends "layouts/base-presentation.html" %}
+{% load crispy_forms_filters %}
 
 {% block title %}
   Projects List
@@ -11,16 +12,25 @@
 
     <div class="row mb-4 align-items-center">
 
-      <div class="col-lg-8">
-
+      <div class="col-lg-6">
         <h2 class="mb-1">
           Projects
         </h2>
-
         <p class="text-muted mb-0">
           All projects in the system
         </p>
-
+      </div>
+      <div class="col-lg-6">
+        <form action="" method="get">
+          <div class="d-flex align-items-start gap-2">
+            <div class="flex-grow-1">
+              {{ search_form.query|as_crispy_field }}
+            </div>
+            <button class="btn bg-gradient-primary h-100">
+              Search
+            </button>
+          </div>
+        </form>
       </div>
 
     </div>

@@ -36,6 +36,15 @@
                   Full name: {{ worker.get_full_name }}
                 </p>
 
+                <p class="text-muted mb-0">
+                  Email:
+                  {% if worker.email %}
+                    {{ worker.email }}
+                  {% else %}
+                    The worker did not add the email
+                  {% endif %}
+                </p>
+
               </div>
 
               <div class="d-flex gap-2">

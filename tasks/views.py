@@ -1,11 +1,24 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from tasks.forms import TaskForm, WorkerCreationForm, TeamForm
+from tasks.forms import (
+    TaskForm,
+    WorkerCreationForm,
+    TeamForm,
+    WorkerUpdateForm,
+    TagNameSearchForm,
+    TaskTypeNameSearchForm,
+    TaskSearchForm,
+    ProjectSearchForm,
+    PositionNameSearchForm,
+    WorkerSearchForm,
+    TeamSearchForm,
+)
 from tasks.models import (
     Task,
     Team,
@@ -61,6 +74,22 @@ class TagListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "tag_list"
     paginate_by = 30
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = TagNameSearchForm(
+            self.request.GET
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Tag.objects.all()
+        form = TagNameSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+        return queryset
+
 
 class TagCreateView(LoginRequiredMixin, generic.CreateView):
     model = Tag
@@ -85,6 +114,22 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     template_name = "tasks/task_type_list.html"
     paginate_by = 30
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = TaskTypeNameSearchForm(
+            self.request.GET
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = TaskType.objects.all()
+        form = TaskTypeNameSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+        return queryset
+
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = TaskType
@@ -104,6 +149,24 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     context_object_name = "task_list"
     paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = TaskSearchForm(
+            self.request.GET
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.all()
+        form = TaskSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                Q(name__icontains=form.cleaned_data["query"])
+                | Q(description__icontains=form.cleaned_data["query"])
+                | Q(tags__name__icontains=form.cleaned_data["query"])
+            )
+        return queryset
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
@@ -141,7 +204,25 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
 class ProjectListView(LoginRequiredMixin, generic.ListView):
     model = Project
     context_object_name = "project_list"
-    paginate_by = 6
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = ProjectSearchForm(
+            self.request.GET
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Project.objects.all()
+        form = ProjectSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                Q(name__icontains=form.cleaned_data["query"])
+                | Q(description__icontains=form.cleaned_data["query"])
+                | Q(tasks__name__icontains=form.cleaned_data["query"])
+            ).distinct()
+        return queryset
 
 
 class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
@@ -181,6 +262,22 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "position_list"
     paginate_by = 30
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = PositionNameSearchForm(
+            self.request.GET
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Position.objects.all()
+        form = PositionNameSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+        return queryset
+
 
 class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     model = Position
@@ -198,6 +295,25 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
     context_object_name = "worker_list"
     paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = WorkerSearchForm(
+            self.request.GET
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Worker.objects.all()
+        form = WorkerSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                Q(username__icontains=form.cleaned_data["query"])
+                | Q(first_name__icontains=form.cleaned_data["query"])
+                | Q(last_name__icontains=form.cleaned_data["query"])
+                | Q(email__icontains=form.cleaned_data["query"])
+            )
+        return queryset
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
@@ -227,7 +343,7 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
 
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
-    form_class = WorkerCreationForm
+    form_class = WorkerUpdateForm
 
     def get_success_url(self):
         return reverse_lazy("tasks:worker-detail", kwargs={"pk": self.object.pk})
@@ -241,7 +357,25 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TeamListView(LoginRequiredMixin, generic.ListView):
     model = Team
     context_object_name = "team_list"
-    paginate_by = 6
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = TeamSearchForm(
+            self.request.GET
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Team.objects.all()
+        form = TeamSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                Q(name__icontains=form.cleaned_data["query"])
+                | Q(description__icontains=form.cleaned_data["query"])
+                | Q(workers__username__icontains=form.cleaned_data["query"])
+            )
+        return queryset
 
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
@@ -250,7 +384,10 @@ class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["projects"] = Project.objects.all()
+        blank_team = Team.objects.get(name="Blank")
+        context["available_projects"] = Project.objects.filter(
+            team=blank_team
+        )
 
         return context
 
@@ -389,17 +526,5 @@ def add_project_to_team(request: HttpRequest, pk: int):
             project = get_object_or_404(Project, pk=project_id)
             project.team = team
             project.save()
-
-    return redirect("tasks:team-detail", pk=pk)
-
-@login_required
-def remove_project_from_team(request, pk: int, task_id: int):
-    project = get_object_or_404(Project, pk=task_id)
-
-    blank_team = Team.objects.get(name="Blank")
-
-    if blank_team:
-        project.team = blank_team
-        project.save()
 
     return redirect("tasks:team-detail", pk=pk)

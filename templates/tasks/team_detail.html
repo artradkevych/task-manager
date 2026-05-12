@@ -32,7 +32,7 @@
           <form method="post" action="{% url "tasks:team-add-project" team.id %}">
             {% csrf_token %}
             <select name="project_id" class="form-select mb-3">
-              {% for project in projects %}
+              {% for project in available_projects %}
                 <option value="{{ project.id }}">
                   {{ project.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
                 </option>

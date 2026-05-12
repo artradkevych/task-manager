@@ -67,99 +67,41 @@ class TeamForm(forms.ModelForm):
         fields = "__all__"
 
 
-class TagNameSearchForm(forms.Form):
-    name = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Search by name"
-            }
+class BaseSearchForm(forms.Form):
+    field_name = "query"
+    placeholder = "Search by name"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields[self.field_name] = forms.CharField(
+            max_length=255,
+            required=False,
+            label="",
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": self.placeholder,
+                }
+            )
         )
-    )
 
 
-class TaskTypeNameSearchForm(forms.Form):
-    name = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Search by name"
-            }
-        )
-    )
+class BaseNameSearchForm(BaseSearchForm):
+    pass
 
 
-class TaskSearchForm(forms.Form):
-    query = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Search by name, description or tag"
-            }
-        )
-    )
+class TaskSearchForm(BaseSearchForm):
+    placeholder = "Search by name, description or tag"
 
 
-class ProjectSearchForm(forms.Form):
-    query = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Search by name, description or tasks"
-            }
-        )
-    )
+class ProjectSearchForm(BaseSearchForm):
+    placeholder = "Search by name, description or tasks"
 
 
-class PositionNameSearchForm(forms.Form):
-    name = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Search by name"
-            }
-        )
-    )
+class WorkerSearchForm(BaseSearchForm):
+    placeholder = "Search by username, email or name"
 
 
-class WorkerSearchForm(forms.Form):
-    query = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Search by username, email or name"
-            }
-        )
-    )
-
-
-class TeamSearchForm(forms.Form):
-    query = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Search by name, description or members"
-            }
-        )
-    )
+class TeamSearchForm(BaseSearchForm):
+    placeholder = "Search by name, description or members"

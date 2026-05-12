@@ -32,15 +32,15 @@ from tasks.views import (
     TeamCreateView,
     TeamUpdateView,
     TeamDeleteView,
-    send_task_to_review,
-    approve_task,
-    add_assignee,
-    remove_assignee,
-    add_task_to_project,
-    remove_task_from_project,
-    team_remove_project,
-    toggle_assign_to_team,
-    add_project_to_team,
+    SendTaskToReview,
+    ApproveTask,
+    AddAssignee,
+    RemoveAssignee,
+    AddTaskToProject,
+    RemoveTaskFromProject,
+    TeamRemoveProject,
+    ToggleAssignToTeam,
+    AddProjectToTeam,
 )
 
 urlpatterns = [
@@ -96,12 +96,12 @@ urlpatterns = [
     ),
     path(
         "tasks/<int:pk>/send-review/",
-        send_task_to_review,
+        SendTaskToReview.as_view(),
         name="send_to_review"
     ),
     path(
         "tasks/<int:pk>/approve/",
-        approve_task,
+        ApproveTask.as_view(),
         name="approve"
     ),
     path(
@@ -116,12 +116,12 @@ urlpatterns = [
     ),
     path(
         "tasks/<int:pk>/add-assignee/",
-        add_assignee,
+        AddAssignee.as_view(),
         name="add-assignee",
     ),
     path(
         "tasks/<int:pk>/remove-assignee/<int:user_id>/",
-        remove_assignee,
+        RemoveAssignee.as_view(),
         name="remove-assignee",
     ),
     path(
@@ -151,12 +151,12 @@ urlpatterns = [
     ),
     path(
         "projects/<int:pk>/add-task/",
-        add_task_to_project,
+        AddTaskToProject.as_view(),
         name="project-add-task",
     ),
     path(
         "projects/<int:pk>/remove-task/<int:task_id>/",
-        remove_task_from_project,
+        RemoveTaskFromProject.as_view(),
         name="project-remove-task",
     ),
     path(
@@ -231,17 +231,17 @@ urlpatterns = [
     ),
     path(
         "teams/<int:pk>/remove-project/<int:project_id>/",
-        team_remove_project,
+        TeamRemoveProject.as_view(),
         name="team-remove-project",
     ),
     path(
         "teams/<int:pk>/toggle-assign/",
-        toggle_assign_to_team,
+        ToggleAssignToTeam.as_view(),
         name="toggle-team-assign",
     ),
     path(
         "teams/<int:pk>/add-project/",
-        add_project_to_team,
+        AddProjectToTeam.as_view(),
         name="team-add-project",
     ),
 ]

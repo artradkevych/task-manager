@@ -24,20 +24,43 @@ The application supports public user registration, enabling anyone to create an 
 * **Custom Statuses:** The ability to define the lifecycle of a task (e.g., Planned, In Progress, Under Review, Completed).
 * **Many-to-Many Labeling:** Tasks can be tagged with multiple labels for better organization and grouping across different projects or themes.
 
-## Database Setup
 
-To populate the database with initial data, run:
+## How to use it
+
+Download the code
 
 ```bash
+git clone https://github.com/artradkevych/task-manager.git
+cd task-manager
+```
+Set Up
+Install modules via VENV
+
+```bash
+python -m venv venv
+venv\Scripts\activate (on Windows)
+source venv/bin/activate (on macOS)
+pip install -r requirements.txt
+```
+Set Up Database and Environment
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
 python manage.py loaddata data.json
+```
+Start the app
+
+```bash
+python manage.py runserver
 ```
 
 ## Credentials
 
 You can use the following credentials to access the admin panel or test the application. Note that the password is the same for all pre-configured users in the system:
 
-* **Username:** admin
-* **Password:** RpfpQ87$
+* **Username:** ```admin```
+* **Password:** ```RpfpQ87$```
 
 ## Tech Stack
 

@@ -10,12 +10,10 @@ from tasks.forms import (
     TaskForm,
     WorkerCreationForm,
     TeamForm,
+    BaseNameSearchForm,
     WorkerUpdateForm,
-    TagNameSearchForm,
-    TaskTypeNameSearchForm,
     TaskSearchForm,
     ProjectSearchForm,
-    PositionNameSearchForm,
     WorkerSearchForm,
     TeamSearchForm,
 )
@@ -69,26 +67,41 @@ def index(request):
     return render(request, "tasks/index.html", context=context)
 
 
-class TagListView(LoginRequiredMixin, generic.ListView):
-    model = Tag
-    context_object_name = "tag_list"
-    paginate_by = 30
+class BaseSearchListView(LoginRequiredMixin, generic.ListView):
+    search_form_class = BaseNameSearchForm
+    search_param = "query"
+    search_fields = []
+
+    def get_search_form(self):
+        return self.search_form_class(self.request.GET)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        form = self.get_search_form()
+
+        if form.is_valid() and form.cleaned_data.get(self.search_param):
+            value = form.cleaned_data[self.search_param]
+
+            q_objects = None
+            for field in self.search_fields:
+                q = Q(**{f"{field}__icontains": value})
+                q_objects = q if q_objects is None else q_objects | q
+
+            return queryset.filter(q_objects)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["search_form"] = TagNameSearchForm(
-            self.request.GET
-        )
+        context["search_form"] = self.get_search_form()
         return context
 
-    def get_queryset(self):
-        queryset = Tag.objects.all()
-        form = TagNameSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
-        return queryset
+
+class TagListView(BaseSearchListView):
+    model = Tag
+    context_object_name = "tag_list"
+    paginate_by = 30
+    search_fields = ["name"]
 
 
 class TagCreateView(LoginRequiredMixin, generic.CreateView):
@@ -108,27 +121,12 @@ class TagDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:tag-list")
 
 
-class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+class TaskTypeListView(BaseSearchListView):
     model = TaskType
     context_object_name = "task_type_list"
     template_name = "tasks/task_type_list.html"
     paginate_by = 30
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = TaskTypeNameSearchForm(
-            self.request.GET
-        )
-        return context
-
-    def get_queryset(self):
-        queryset = TaskType.objects.all()
-        form = TaskTypeNameSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
-        return queryset
+    search_fields = ["name"]
 
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
@@ -145,28 +143,12 @@ class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("tasks:task_type-list")
 
 
-class TaskListView(LoginRequiredMixin, generic.ListView):
+class TaskListView(BaseSearchListView):
     model = Task
     context_object_name = "task_list"
     paginate_by = 6
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = TaskSearchForm(
-            self.request.GET
-        )
-        return context
-
-    def get_queryset(self):
-        queryset = Task.objects.all()
-        form = TaskSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(
-                Q(name__icontains=form.cleaned_data["query"])
-                | Q(description__icontains=form.cleaned_data["query"])
-                | Q(tags__name__icontains=form.cleaned_data["query"])
-            )
-        return queryset
+    search_form_class = TaskSearchForm
+    search_fields = ["name", "description", "tags__name"]
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
@@ -201,28 +183,12 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:task-list")
 
 
-class ProjectListView(LoginRequiredMixin, generic.ListView):
+class ProjectListView(BaseSearchListView):
     model = Project
     context_object_name = "project_list"
     paginate_by = 9
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = ProjectSearchForm(
-            self.request.GET
-        )
-        return context
-
-    def get_queryset(self):
-        queryset = Project.objects.all()
-        form = ProjectSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(
-                Q(name__icontains=form.cleaned_data["query"])
-                | Q(description__icontains=form.cleaned_data["query"])
-                | Q(tasks__name__icontains=form.cleaned_data["query"])
-            ).distinct()
-        return queryset
+    search_form_class = ProjectSearchForm
+    search_fields = ["name", "description", "tasks__name"]
 
 
 class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
@@ -260,26 +226,11 @@ class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:project-list")
 
 
-class PositionListView(LoginRequiredMixin, generic.ListView):
+class PositionListView(BaseSearchListView):
     model = Position
     context_object_name = "position_list"
     paginate_by = 30
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = PositionNameSearchForm(
-            self.request.GET
-        )
-        return context
-
-    def get_queryset(self):
-        queryset = Position.objects.all()
-        form = PositionNameSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
-        return queryset
+    search_fields = ["name"]
 
 
 class PositionCreateView(LoginRequiredMixin, generic.CreateView):
@@ -294,29 +245,12 @@ class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("tasks:position-list")
 
 
-class WorkerListView(LoginRequiredMixin, generic.ListView):
+class WorkerListView(BaseSearchListView):
     model = Worker
     context_object_name = "worker_list"
     paginate_by = 6
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = WorkerSearchForm(
-            self.request.GET
-        )
-        return context
-
-    def get_queryset(self):
-        queryset = Worker.objects.all()
-        form = WorkerSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(
-                Q(username__icontains=form.cleaned_data["query"])
-                | Q(first_name__icontains=form.cleaned_data["query"])
-                | Q(last_name__icontains=form.cleaned_data["query"])
-                | Q(email__icontains=form.cleaned_data["query"])
-            )
-        return queryset
+    search_form_class = WorkerSearchForm
+    search_fields = ["username", "first_name", "last_name", "email"]
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
@@ -360,28 +294,12 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:worker-list")
 
 
-class TeamListView(LoginRequiredMixin, generic.ListView):
+class TeamListView(BaseSearchListView):
     model = Team
     context_object_name = "team_list"
     paginate_by = 9
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = TeamSearchForm(
-            self.request.GET
-        )
-        return context
-
-    def get_queryset(self):
-        queryset = Team.objects.all()
-        form = TeamSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(
-                Q(name__icontains=form.cleaned_data["query"])
-                | Q(description__icontains=form.cleaned_data["query"])
-                | Q(workers__username__icontains=form.cleaned_data["query"])
-            ).distinct()
-        return queryset
+    search_form_class = TeamSearchForm
+    search_fields = ["name", "description", "workers__name"]
 
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
@@ -417,39 +335,33 @@ class TeamDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:team-list")
 
 
-@login_required
-def send_task_to_review(request: HttpRequest, pk: int):
-    task = Task.objects.get(id=pk)
-    if (
-        request.user in task.assignees.all()
-        and task.status not in ("DONE", "IN_REVIEW")
-    ):
-        task.status = "IN_REVIEW"
-        task.save()
-    return HttpResponseRedirect(
-        reverse_lazy("tasks:task-detail", args=[pk])
-    )
+class SendTaskToReview(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int):
+        task = get_object_or_404(Task, id=pk)
+        if (
+                request.user in task.assignees.all()
+                and task.status not in ("DONE", "IN_REVIEW")
+        ):
+            task.status = "IN_REVIEW"
+            task.save()
+        return redirect("tasks:task-detail", pk=pk)
 
 
-@login_required
-def approve_task(request: HttpRequest, pk: int):
-    task = Task.objects.get(id=pk)
-    if (
-        request.user.is_staff
-        and task.status == "IN_REVIEW"
-    ):
-        task.status = "DONE"
-        task.save()
-    return HttpResponseRedirect(
-        reverse_lazy("tasks:task-detail", args=[pk])
-    )
+class ApproveTask(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int):
+        task = get_object_or_404(Task, id=pk)
+        if (
+            request.user.is_staff
+            and task.status == "IN_REVIEW"
+        ):
+            task.status = "DONE"
+            task.save()
+        return redirect("tasks:task-detail", pk=pk)
 
 
-@login_required
-def add_task_to_project(request: HttpRequest, pk: int):
-    project = get_object_or_404(Project, pk=pk)
-
-    if request.method == "POST":
+class AddTaskToProject(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int):
+        project = get_object_or_404(Project, pk=pk)
         task_id = request.POST.get("task_id")
 
         if task_id:
@@ -457,82 +369,72 @@ def add_task_to_project(request: HttpRequest, pk: int):
             task.project = project
             task.save()
 
-    return redirect("tasks:project-detail", pk=pk)
+        return redirect("tasks:project-detail", pk=pk)
 
 
-@login_required
-def remove_task_from_project(request, pk: int, task_id: int):
-    task = get_object_or_404(Task, pk=task_id)
+class RemoveTaskFromProject(LoginRequiredMixin, generic.View):
+    def post(self, request, pk: int, task_id: int):
+        task = get_object_or_404(Task, pk=task_id)
+        unassigned_project = get_object_or_404(Project, name="Unassigned")
 
-    unassigned_project = Project.objects.get(name="Unassigned")
-
-    if unassigned_project:
         task.project = unassigned_project
         task.save()
 
-    return redirect("tasks:project-detail", pk=pk)
+        return redirect("tasks:project-detail", pk=pk)
 
 
-@login_required
-def add_assignee(request: HttpRequest, pk: int):
-    task = get_object_or_404(Task, pk=pk)
-
-    if request.method == "POST":
+class AddAssignee(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int):
+        task = get_object_or_404(Task, pk=pk)
         user_id = request.POST.get("worker_id")
 
         if user_id:
             worker = get_object_or_404(Worker, pk=user_id)
             task.assignees.add(worker)
 
-    return redirect("tasks:task-detail", pk=pk)
+        return redirect("tasks:task-detail", pk=pk)
 
 
-@login_required
-def remove_assignee(request: HttpRequest, pk: int, user_id: int):
-    task = get_object_or_404(Task, pk=pk)
-    worker = get_object_or_404(Worker, pk=user_id)
+class RemoveAssignee(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int, user_id: int):
+        task = get_object_or_404(Task, pk=pk)
+        worker = get_object_or_404(Worker, pk=user_id)
 
-    if request.user.is_staff:
-        task.assignees.remove(worker)
+        if request.user.is_staff:
+            task.assignees.remove(worker)
 
-    return redirect("tasks:task-detail", pk=pk)
+        return redirect("tasks:task-detail", pk=pk)
 
 
-@login_required
-def team_remove_project(request: HttpRequest, pk: int, project_id: int):
-    project = get_object_or_404(Project, pk=project_id)
+class TeamRemoveProject(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int, project_id: int):
+        project = get_object_or_404(Project, pk=project_id)
 
-    blank_team = Team.objects.get(name="Blank")
-
-    if blank_team:
+        blank_team = get_object_or_404(Team, name="Blank")
         project.team = blank_team
         project.save()
 
-    return redirect("tasks:team-detail", pk=pk)
+        return redirect("tasks:team-detail", pk=pk)
 
 
-@login_required
-def toggle_assign_to_team(request: HttpRequest, pk: int):
-    worker = Worker.objects.get(id=request.user.id)
-    if (
-        Team.objects.get(id=pk) in worker.teams.all()
-    ):
-        worker.teams.remove(pk)
-    else:
-        worker.teams.add(pk)
-    return HttpResponseRedirect(reverse_lazy("tasks:team-detail", args=[pk]))
+class ToggleAssignToTeam(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int):
+        worker = request.user
+        if worker.teams.filter(pk=pk).exists():
+            worker.teams.remove(pk)
+        else:
+            worker.teams.add(pk)
+        return redirect("tasks:team-detail", pk=pk)
 
 
-@login_required
-def add_project_to_team(request: HttpRequest, pk: int):
-    team = get_object_or_404(Team, pk=pk)
-
-    if request.method == "POST":
+class AddProjectToTeam(LoginRequiredMixin, generic.View):
+    def post(self, request: HttpRequest, pk: int):
+        team = get_object_or_404(Team, pk=pk)
         project_id = request.POST.get("project_id")
 
         if project_id:
-            project = get_object_or_404(Project, pk=project_id)
-            project.team = team
-            project.save()
+                project = get_object_or_404(Project, pk=project_id)
+                project.team = team
+                project.save()
 
-    return redirect("tasks:team-detail", pk=pk)
+        return redirect("tasks:team-detail", pk=pk)

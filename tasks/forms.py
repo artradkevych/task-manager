@@ -43,6 +43,7 @@ class WorkerCreationForm(UserCreationForm):
 
 class WorkerUpdateForm(UserChangeForm):
     password = None
+
     class Meta(UserChangeForm.Meta):
         model = Worker
         fields = (

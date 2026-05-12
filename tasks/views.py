@@ -249,7 +249,10 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     fields = "__all__"
 
     def get_success_url(self):
-        return reverse_lazy("tasks:project-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy(
+            "tasks:project-detail",
+            kwargs={"pk": self.object.pk}
+        )
 
 
 class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -346,7 +349,10 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = WorkerUpdateForm
 
     def get_success_url(self):
-        return reverse_lazy("tasks:worker-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy(
+            "tasks:worker-detail",
+            kwargs={"pk": self.object.pk}
+        )
 
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -374,7 +380,7 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
                 Q(name__icontains=form.cleaned_data["query"])
                 | Q(description__icontains=form.cleaned_data["query"])
                 | Q(workers__username__icontains=form.cleaned_data["query"])
-            )
+            ).distinct()
         return queryset
 
 
@@ -438,6 +444,7 @@ def approve_task(request: HttpRequest, pk: int):
         reverse_lazy("tasks:task-detail", args=[pk])
     )
 
+
 @login_required
 def add_task_to_project(request: HttpRequest, pk: int):
     project = get_object_or_404(Project, pk=pk)
@@ -451,6 +458,7 @@ def add_task_to_project(request: HttpRequest, pk: int):
             task.save()
 
     return redirect("tasks:project-detail", pk=pk)
+
 
 @login_required
 def remove_task_from_project(request, pk: int, task_id: int):

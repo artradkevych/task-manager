@@ -19,9 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from task_manager import settings
+from core.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("tasks.urls", namespace="tasks")),
+    path("", index, name="index"),
+    path("catalog/", include("catalog.urls", namespace="catalog")),
+    path("users/", include("users.urls", namespace="users")),
+    path("work/", include("work.urls", namespace="work")),
     path("accounts/", include("django.contrib.auth.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

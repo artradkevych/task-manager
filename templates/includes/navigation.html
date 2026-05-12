@@ -22,7 +22,7 @@
           <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0" id="navigation">
             <ul class="navbar-nav ps-lg-3 w-100">
               <li class="nav-item mx-2">
-                <a class="nav-link" href="{% url "tasks:index" %}">
+                <a class="nav-link" href="{% url "index" %}">
                   Dashboard
                 </a>
               </li>
@@ -34,10 +34,10 @@
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:task_type-list" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "catalog:task_type-list" %}">
                     List TaskTypes
                   </a>
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:task_type-create" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "catalog:task_type-create" %}">
                     Create TaskType
                   </a>
                 </div>
@@ -50,10 +50,10 @@
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:tag-list" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "catalog:tag-list" %}">
                     List Tags
                   </a>
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:tag-create" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "catalog:tag-create" %}">
                     Create Tag
                   </a>
                 </div>
@@ -66,10 +66,10 @@
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:task-list" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "work:task-list" %}">
                     List Tasks
                   </a>
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:task-create" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "work:task-create" %}">
                     Create Task
                   </a>
                 </div>
@@ -82,10 +82,10 @@
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:project-list" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "work:project-list" %}">
                     List Projects
                   </a>
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:project-create" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "work:project-create" %}">
                     Create Project
                   </a>
                 </div>
@@ -98,10 +98,10 @@
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:position-list" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "users:position-list" %}">
                     List Positions
                   </a>
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:position-create" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "users:position-create" %}">
                     Create Position
                   </a>
                 </div>
@@ -114,10 +114,10 @@
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:worker-list" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "users:worker-list" %}">
                     List Workers
                   </a>
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:worker-create" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "users:worker-create" %}">
                     Create Worker
                   </a>
                 </div>
@@ -130,10 +130,10 @@
                        class="ms-1">
                 </a>
                 <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-3">
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:team-list" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "users:team-list" %}">
                     List Teams
                   </a>
-                  <a class="dropdown-item border-radius-md" href="{% url "tasks:team-create" %}">
+                  <a class="dropdown-item border-radius-md" href="{% url "users:team-create" %}">
                     Create Team
                   </a>
                 </div>
@@ -141,7 +141,7 @@
 
               <li class="nav-item ms-auto d-flex align-items-center">
               {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url "tasks:worker-detail" pk=user.id %}">
+                <a class="nav-link" href="{% url "users:worker-detail" pk=user.id %}">
                   {{ user.username }}
                 </a>
 

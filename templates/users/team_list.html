@@ -1,0 +1,94 @@
+{% extends "layouts/base-presentation.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  Teams List
+{% endblock %}
+
+{% block content %}
+
+<section class="py-7">
+  <div class="container">
+
+    <div class="row mb-4 align-items-center">
+
+      <div class="col-lg-6">
+        <h2 class="mb-1">
+          Teams
+        </h2>
+        <p class="text-muted mb-0">
+          All teams in the system
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <form action="" method="get">
+          <div class="d-flex align-items-start gap-2">
+            <div class="flex-grow-1">
+              {{ search_form.query|as_crispy_field }}
+            </div>
+            <button class="btn bg-gradient-primary h-100">
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="row gx-4">
+
+      {% for team in team_list %}
+
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card shadow-lg h-100">
+
+          <div class="card-body">
+
+            <h5 class="mb-2">
+              {{ team.name }}
+            </h5>
+
+            <p class="text-sm text-muted mb-2">
+              Members:
+                {% for worker in team.workers.all %}
+                  <span class="badge bg-secondary me-1">
+                    {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
+                  </span>
+                {% empty %}
+                  <span class="text-muted">No team members</span>
+                {% endfor %}
+            </p>
+
+            <a href="{% url "users:team-detail" pk=team.id %}"
+               class="btn btn-outline-primary btn-sm mb-0">
+              View
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {% empty %}
+
+      <div class="col-12 text-center">
+
+        <p class="lead">
+          No teams available
+        </p>
+
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}

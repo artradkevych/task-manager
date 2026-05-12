@@ -1,0 +1,105 @@
+from django.urls import path
+
+from work.views import (
+    TaskListView,
+    TaskDetailView,
+    TaskCreateView,
+    TaskUpdateView,
+    TaskDeleteView,
+    AddAssignee,
+    RemoveAssignee,
+    ProjectListView,
+    ProjectDetailView,
+    ProjectUpdateView,
+    ProjectDeleteView,
+    ProjectCreateView,
+    SendTaskToReview,
+    ApproveTask,
+    AddTaskToProject,
+    RemoveTaskFromProject,
+)
+
+urlpatterns = [
+    path(
+        "tasks/",
+        TaskListView.as_view(),
+        name="task-list",
+    ),
+    path(
+        "tasks/<int:pk>/",
+        TaskDetailView.as_view(),
+        name="task-detail",
+    ),
+    path(
+        "tasks/<int:pk>/send-review/",
+        SendTaskToReview.as_view(),
+        name="send_to_review"
+    ),
+    path(
+        "tasks/<int:pk>/approve/",
+        ApproveTask.as_view(),
+        name="approve"
+    ),
+    path(
+        "tasks/<int:pk>/update/",
+        TaskUpdateView.as_view(),
+        name="task-update",
+    ),
+    path(
+        "tasks/<int:pk>/delete/",
+        TaskDeleteView.as_view(),
+        name="task-delete",
+    ),
+    path(
+        "tasks/<int:pk>/add-assignee/",
+        AddAssignee.as_view(),
+        name="add-assignee",
+    ),
+    path(
+        "tasks/<int:pk>/remove-assignee/<int:user_id>/",
+        RemoveAssignee.as_view(),
+        name="remove-assignee",
+    ),
+    path(
+        "tasks/create/",
+        TaskCreateView.as_view(),
+        name="task-create",
+    ),
+    path(
+        "projects/",
+        ProjectListView.as_view(),
+        name="project-list",
+    ),
+    path(
+        "projects/<int:pk>/",
+        ProjectDetailView.as_view(),
+        name="project-detail",
+    ),
+    path(
+        "projects/<int:pk>/update/",
+        ProjectUpdateView.as_view(),
+        name="project-update",
+    ),
+    path(
+        "projects/<int:pk>/delete/",
+        ProjectDeleteView.as_view(),
+        name="project-delete",
+    ),
+    path(
+        "projects/<int:pk>/add-task/",
+        AddTaskToProject.as_view(),
+        name="project-add-task",
+    ),
+    path(
+        "projects/<int:pk>/remove-task/<int:task_id>/",
+        RemoveTaskFromProject.as_view(),
+        name="project-remove-task",
+    ),
+    path(
+        "projects/create/",
+        ProjectCreateView.as_view(),
+        name="project-create",
+    ),
+]
+
+app_name = "work"

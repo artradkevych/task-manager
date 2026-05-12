@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     "django_extensions",
     "crispy_forms",
     "crispy_bootstrap4",
-    "tasks"
+    "work",
+    "users",
+    "catalog"
 ]
 
 MIDDLEWARE = [
@@ -70,7 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'tasks.context_procesors.cfg_assets_root',
+                'work.context_procesors.cfg_assets_root',
             ],
         },
     },
@@ -134,7 +136,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-AUTH_USER_MODEL = "tasks.Worker"
+AUTH_USER_MODEL = "users.Worker"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

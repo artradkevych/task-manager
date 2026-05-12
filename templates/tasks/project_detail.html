@@ -85,10 +85,12 @@
                     <span class="badge bg-secondary me-1">
                       {{ task.name }} • {{ task.get_status_display }} • {{ task.get_priority_display }}
                     </span>
-                    <a href="{% url 'tasks:project-remove-task' pk=project.id task_id=task.id %}"
-                       class="badge bg-danger me-1">
-                      🗑️
-                    </a>
+                    <form action="{% url 'tasks:project-remove-task' pk=project.id task_id=task.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="badge bg-danger me-1 shadow-none border-0" style="text-decoration: none;">
+                        🗑️
+                      </button>
+                    </form>
                   </div>
 
                 {% empty %}

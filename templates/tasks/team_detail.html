@@ -71,10 +71,12 @@
                       {{ project.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
                     </span>
                     {% if user.is_staff %}
-                      <a href="{% url "tasks:team-remove-project" pk=team.id project_id=project.id %}"
-                         class="badge bg-danger me-1">
+                      <form action="{% url "tasks:team-remove-project" pk=team.id project_id=project.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="badge bg-danger me-1 shadow-none border-0" style="text-decoration: none;">
                         🗑️
-                      </a>
+                      </button>
+                    </form>
                     {% endif %}
                   </div>
 
@@ -125,15 +127,19 @@
                 <strong>Team members:</strong>
               </p>
               {% if team in user.teams.all %}
-                <a href="{% url "tasks:toggle-team-assign" pk=team.id %}"
-                   class="badge bg-danger btn-sm">
-                  Leave the team
-                </a>
+                <form action="{% url "tasks:toggle-team-assign" pk=team.id %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="badge bg-danger btn-sm shadow-none border-0" style="text-decoration: none;">
+                    Leave the team
+                  </button>
+                </form>
               {% else %}
-                <a href="{% url "tasks:toggle-team-assign" pk=team.id %}"
-                   class="badge bg-primary btn-sm">
-                  Join the team
-                </a>
+                <form action="{% url "tasks:toggle-team-assign" pk=team.id %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="badge bg-primary btn-sm shadow-none border-0" style="text-decoration: none;">
+                    Join the team
+                  </button>
+                </form>
               {% endif %}
             </div>
 

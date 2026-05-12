@@ -71,18 +71,22 @@
 
                 {% if request.user.is_staff %}
                   {% if task.status == "IN_REVIEW" %}
-                    <a href="{% url "tasks:approve" pk=task.id %}"
-                       class="btn btn-success btn-sm">
-                      Approve
-                    </a>
+                    <form action="{% url "tasks:approve" pk=task.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-success btn-sm">
+                        Approve
+                      </button>
+                    </form>
                   {% endif %}
                 {% endif %}
 
                   {% if task.status != "DONE" and task.status != "IN_REVIEW" %}
-                    <a href="{% url "tasks:send_to_review" pk=task.id %}"
-                       class="btn btn-warning btn-sm">
-                      Send to Review
-                    </a>
+                    <form action="{% url "tasks:send_to_review" pk=task.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-danger btn-sm">
+                        Send to review
+                      </button>
+                    </form>
                   {% endif %}
 
                 <p class="text-muted mb-0">
@@ -150,10 +154,12 @@
                       <span class="badge bg-secondary me-1">
                         {{ worker.username }}
                         {% if request.user.is_staff %}
-                          <a href="{% url 'tasks:remove-assignee' pk=task.id user_id=worker.id %}"
-                             class="text-danger ms-1">
-                            x
-                          </a>
+                          <form action="{% url 'tasks:remove-assignee' pk=task.id user_id=worker.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link text-danger p-0 border-0 m-0 align-baseline shadow-none" style="text-decoration: none;">
+                              x
+                            </button>
+                          </form>
                         {% endif %}
                       </span>
 

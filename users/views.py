@@ -98,7 +98,9 @@ class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        blank_team = Team.objects.get(name="Blank")
+        blank_team, _ = Team.objects.get_or_create(
+            name="Blank",
+        )
         context["available_projects"] = Project.objects.filter(
             team=blank_team
         )
@@ -139,7 +141,9 @@ class TeamRemoveProject(LoginRequiredMixin, generic.View):
     def post(self, request: HttpRequest, pk: int, project_id: int):
         project = get_object_or_404(Project, pk=project_id)
 
-        blank_team = get_object_or_404(Team, name="Blank")
+        blank_team, _ = Team.objects.get_or_create(
+            name="Blank",
+        )
         project.team = blank_team
         project.save()
 

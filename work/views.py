@@ -14,7 +14,7 @@ from work.models import (
     Task,
     Project,
 )
-from users.models import Worker
+from users.models import Worker, Team
 
 
 class TaskListView(BaseSearchListView):
@@ -70,10 +70,16 @@ class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        unassigned = get_object_or_404(Project, name="Unassigned")
+        blank_team, _ = Team.objects.get_or_create(
+            name="Blank",
+        )
+        unassigned_project, _ = Project.objects.get_or_create(
+            name="Unassigned",
+            defaults={"team": blank_team}
+        )
 
         context["available_tasks"] = Task.objects.filter(
-            project=unassigned
+            project=unassigned_project
         )
 
         return context
@@ -141,7 +147,10 @@ class AddTaskToProject(LoginRequiredMixin, generic.View):
 class RemoveTaskFromProject(LoginRequiredMixin, generic.View):
     def post(self, request, pk: int, task_id: int):
         task = get_object_or_404(Task, pk=task_id)
-        unassigned_project = get_object_or_404(Project, name="Unassigned")
+        unassigned_project, _ = Project.objects.get_or_create(
+            name="Unassigned",
+            defaults={"team": task.project.team}
+        )
 
         task.project = unassigned_project
         task.save()

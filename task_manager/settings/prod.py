@@ -1,9 +1,7 @@
-from dotenv import load_dotenv
 from .base import *
 
 
 DEBUG = False
-load_dotenv()
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
@@ -12,6 +10,8 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DATABASES = {
  'default': {
@@ -21,7 +21,7 @@ DATABASES = {
    'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
    'HOST': os.getenv('POSTGRES_HOST'),
    'PORT': int(os.getenv('POSTGRES_DB_PORT', 5432)),
-'OPTIONS': {
+   'OPTIONS': {
            'sslmode': 'require',
        },
  }

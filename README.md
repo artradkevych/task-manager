@@ -8,6 +8,11 @@ Task Manager is a multi-user platform designed to streamline internal project co
 
 The application supports public user registration, enabling anyone to create an account and begin managing their own tasks or collaborating with others.
 
+## Deployment
+
+You can try the live version of the project here:
+  https://task-manager-inko.onrender.com
+
 ## Main Features
 
 ### User Authentication and Management

@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from task_manager import settings
+from task_manager.settings import prod
 from core.views import index
 
 urlpatterns = [
@@ -28,4 +28,4 @@ urlpatterns = [
     path("users/", include("users.urls", namespace="users")),
     path("work/", include("work.urls", namespace="work")),
     path("accounts/", include("django.contrib.auth.urls")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(prod.STATIC_URL, document_root=prod.STATIC_ROOT)

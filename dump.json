@@ -1,0 +1,1727 @@
+[
+{
+    "model": "catalog.tasktype",
+    "pk": 1,
+    "fields": {
+        "name": "Bug Fix"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 2,
+    "fields": {
+        "name": "New Feature"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 3,
+    "fields": {
+        "name": "Refactoring"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 4,
+    "fields": {
+        "name": "Documentation"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 5,
+    "fields": {
+        "name": "Testing"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 6,
+    "fields": {
+        "name": "Deployment"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 7,
+    "fields": {
+        "name": "UI Improvement"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 8,
+    "fields": {
+        "name": "Security Patch"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 9,
+    "fields": {
+        "name": "Database Migration"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 10,
+    "fields": {
+        "name": "Research"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 11,
+    "fields": {
+        "name": "Code Review"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 12,
+    "fields": {
+        "name": "Hotfix"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 13,
+    "fields": {
+        "name": "API Integration"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 14,
+    "fields": {
+        "name": "Analytics"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 15,
+    "fields": {
+        "name": "Client Request"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 16,
+    "fields": {
+        "name": "Internal Audit"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 17,
+    "fields": {
+        "name": "Optimization"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 18,
+    "fields": {
+        "name": "Emergency"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 19,
+    "fields": {
+        "name": "Backlog Grooming"
+    }
+},
+{
+    "model": "catalog.tasktype",
+    "pk": 20,
+    "fields": {
+        "name": "Legal Review"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 1,
+    "fields": {
+        "name": "Backend"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 2,
+    "fields": {
+        "name": "Frontend"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 3,
+    "fields": {
+        "name": "Urgent"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 4,
+    "fields": {
+        "name": "API"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 5,
+    "fields": {
+        "name": "Mobile"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 6,
+    "fields": {
+        "name": "Legacy"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 7,
+    "fields": {
+        "name": "Security"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 8,
+    "fields": {
+        "name": "Cloud"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 9,
+    "fields": {
+        "name": "Docker"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 10,
+    "fields": {
+        "name": "CI/CD"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 11,
+    "fields": {
+        "name": "Performance"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 12,
+    "fields": {
+        "name": "Billing"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 13,
+    "fields": {
+        "name": "Auth"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 14,
+    "fields": {
+        "name": "UI"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 15,
+    "fields": {
+        "name": "UX"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 16,
+    "fields": {
+        "name": "Translation"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 17,
+    "fields": {
+        "name": "Migration"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 18,
+    "fields": {
+        "name": "Caching"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 19,
+    "fields": {
+        "name": "WebSockets"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 20,
+    "fields": {
+        "name": "UnitTests"
+    }
+},
+{
+    "model": "work.task",
+    "pk": 1,
+    "fields": {
+        "name": "Fix Login Bug",
+        "description": "Auth error",
+        "deadline": "2026-12-01T12:00:00Z",
+        "created_at": "2026-05-10T08:00:00Z",
+        "updated_at": "2026-05-10T09:00:00Z",
+        "status": "TODO",
+        "priority": "URGENT",
+        "task_type": 1,
+        "project": 1,
+        "assignees": [
+            1,
+            2
+        ],
+        "tags": [
+            13,
+            3
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 2,
+    "fields": {
+        "name": "Implement JWT",
+        "description": "Tokens",
+        "deadline": "2026-12-05T12:00:00Z",
+        "created_at": "2026-05-11T10:00:00Z",
+        "updated_at": "2026-05-11T11:00:00Z",
+        "status": "IN_PROGRESS",
+        "priority": "HIGH",
+        "task_type": 2,
+        "project": 1,
+        "assignees": [
+            2
+        ],
+        "tags": [
+            13,
+            1
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 3,
+    "fields": {
+        "name": "Design Logo",
+        "description": "SVG",
+        "deadline": "2026-11-20T12:00:00Z",
+        "created_at": "2026-05-01T08:00:00Z",
+        "updated_at": "2026-05-01T08:00:00Z",
+        "status": "DONE",
+        "priority": "MEDIUM",
+        "task_type": 7,
+        "project": 1,
+        "assignees": [
+            6
+        ],
+        "tags": [
+            14
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 4,
+    "fields": {
+        "name": "DB Backup Setup",
+        "description": "Daily cron job",
+        "deadline": "2026-12-10T12:00:00Z",
+        "created_at": "2026-05-02T14:20:00Z",
+        "updated_at": "2026-05-02T14:20:00Z",
+        "status": "TODO",
+        "priority": "LOW",
+        "task_type": 9,
+        "project": 1,
+        "assignees": [
+            16
+        ],
+        "tags": [
+            17
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 5,
+    "fields": {
+        "name": "Write Documentation",
+        "description": "API v2",
+        "deadline": "2026-12-15T12:00:00Z",
+        "created_at": "2026-05-03T09:00:00Z",
+        "updated_at": "2026-05-03T10:00:00Z",
+        "status": "IN_REVIEW",
+        "priority": "OPTIONAL",
+        "task_type": 4,
+        "project": 1,
+        "assignees": [
+            20
+        ],
+        "tags": [
+            4
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 6,
+    "fields": {
+        "name": "Mobile Splash Screen",
+        "description": "Lottie animation",
+        "deadline": "2026-12-01T12:00:00Z",
+        "created_at": "2026-05-04T12:00:00Z",
+        "updated_at": "2026-05-04T12:00:00Z",
+        "status": "TODO",
+        "priority": "MEDIUM",
+        "task_type": 7,
+        "project": 21,
+        "assignees": [
+            14
+        ],
+        "tags": [
+            5
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 7,
+    "fields": {
+        "name": "Security Audit",
+        "description": "Manual pen-test",
+        "deadline": "2026-11-25T12:00:00Z",
+        "created_at": "2026-05-05T15:00:00Z",
+        "updated_at": "2026-05-05T15:00:00Z",
+        "status": "IN_PROGRESS",
+        "priority": "URGENT",
+        "task_type": 8,
+        "project": 1,
+        "assignees": [
+            9
+        ],
+        "tags": [
+            7
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 8,
+    "fields": {
+        "name": "Migrate to AWS S3",
+        "description": "Storage move",
+        "deadline": "2026-12-20T12:00:00Z",
+        "created_at": "2026-05-06T11:00:00Z",
+        "updated_at": "2026-05-06T11:00:00Z",
+        "status": "TODO",
+        "priority": "HIGH",
+        "task_type": 6,
+        "project": 1,
+        "assignees": [
+            5
+        ],
+        "tags": [
+            8
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 9,
+    "fields": {
+        "name": "QA Regression",
+        "description": "Release v1.2",
+        "deadline": "2026-11-30T12:00:00Z",
+        "created_at": "2026-05-07T08:30:00Z",
+        "updated_at": "2026-05-07T14:00:00Z",
+        "status": "TODO",
+        "priority": "MEDIUM",
+        "task_type": 5,
+        "project": 21,
+        "assignees": [
+            4
+        ],
+        "tags": [
+            20
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 10,
+    "fields": {
+        "name": "Refactor User Model",
+        "description": "Simplify fields",
+        "deadline": "2026-12-05T12:00:00Z",
+        "created_at": "2026-05-08T10:00:00Z",
+        "updated_at": "2026-05-08T10:00:00Z",
+        "status": "TODO",
+        "priority": "MEDIUM",
+        "task_type": 3,
+        "project": 1,
+        "assignees": [
+            1
+        ],
+        "tags": [
+            1,
+            11
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 11,
+    "fields": {
+        "name": "Setup CI/CD Pipeline",
+        "description": "GitHub Actions",
+        "deadline": "2026-12-01T12:00:00Z",
+        "created_at": "2026-05-09T09:00:00Z",
+        "updated_at": "2026-05-09T09:00:00Z",
+        "status": "IN_PROGRESS",
+        "priority": "HIGH",
+        "task_type": 6,
+        "project": 1,
+        "assignees": [
+            5
+        ],
+        "tags": [
+            10
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 12,
+    "fields": {
+        "name": "Localize Content",
+        "description": "Spanish/German",
+        "deadline": "2026-12-30T12:00:00Z",
+        "created_at": "2026-05-10T12:00:00Z",
+        "updated_at": "2026-05-10T12:00:00Z",
+        "status": "TODO",
+        "priority": "LOW",
+        "task_type": 4,
+        "project": 1,
+        "assignees": [
+            20
+        ],
+        "tags": [
+            16
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 13,
+    "fields": {
+        "name": "Redis Caching",
+        "description": "Cache dashboard data",
+        "deadline": "2026-12-10T12:00:00Z",
+        "created_at": "2026-05-11T08:00:00Z",
+        "updated_at": "2026-05-11T09:00:00Z",
+        "status": "DONE",
+        "priority": "MEDIUM",
+        "task_type": 17,
+        "project": 1,
+        "assignees": [
+            1
+        ],
+        "tags": [
+            18,
+            11
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 14,
+    "fields": {
+        "name": "WebSocket Integration",
+        "description": "Live notifications",
+        "deadline": "2026-12-12T12:00:00Z",
+        "created_at": "2026-05-12T10:00:00Z",
+        "updated_at": "2026-05-12T10:00:00Z",
+        "status": "IN_REVIEW",
+        "priority": "HIGH",
+        "task_type": 13,
+        "project": 1,
+        "assignees": [
+            2
+        ],
+        "tags": [
+            4,
+            19
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 15,
+    "fields": {
+        "name": "Fix CSS Grid",
+        "description": "IE11 compatibility",
+        "deadline": "2026-11-20T12:00:00Z",
+        "created_at": "2026-05-12T14:00:00Z",
+        "updated_at": "2026-05-12T14:30:00Z",
+        "status": "DONE",
+        "priority": "LOW",
+        "task_type": 1,
+        "project": 1,
+        "assignees": [
+            2
+        ],
+        "tags": [
+            2,
+            14
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 16,
+    "fields": {
+        "name": "Bulk User Import",
+        "description": "Legacy system sync",
+        "deadline": "2026-12-25T12:00:00Z",
+        "created_at": "2026-05-12T16:00:00Z",
+        "updated_at": "2026-05-12T19:28:17.023Z",
+        "status": "DONE",
+        "priority": "MEDIUM",
+        "task_type": 9,
+        "project": 21,
+        "assignees": [
+            3
+        ],
+        "tags": [
+            6
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 17,
+    "fields": {
+        "name": "Performance Review",
+        "description": "Database query logs",
+        "deadline": "2026-12-05T12:00:00Z",
+        "created_at": "2026-05-13T09:00:00Z",
+        "updated_at": "2026-05-12T19:14:10.414Z",
+        "status": "TODO",
+        "priority": "HIGH",
+        "task_type": 14,
+        "project": 20,
+        "assignees": [
+            1,
+            16
+        ],
+        "tags": [
+            1,
+            11
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 18,
+    "fields": {
+        "name": "Dark Mode Support",
+        "description": "Global CSS variables",
+        "deadline": "2026-12-15T12:00:00Z",
+        "created_at": "2026-05-13T11:00:00Z",
+        "updated_at": "2026-05-12T19:12:16.729Z",
+        "status": "IN_PROGRESS",
+        "priority": "MEDIUM",
+        "task_type": 7,
+        "project": 21,
+        "assignees": [
+            2,
+            14
+        ],
+        "tags": [
+            14,
+            15
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 19,
+    "fields": {
+        "name": "Docker Swarm Setup",
+        "description": "Orchestration",
+        "deadline": "2026-12-20T12:00:00Z",
+        "created_at": "2026-05-14T08:00:00Z",
+        "updated_at": "2026-05-12T19:11:39.895Z",
+        "status": "IN_REVIEW",
+        "priority": "MEDIUM",
+        "task_type": 6,
+        "project": 1,
+        "assignees": [
+            1,
+            5
+        ],
+        "tags": [
+            8,
+            9
+        ]
+    }
+},
+{
+    "model": "work.task",
+    "pk": 20,
+    "fields": {
+        "name": "Hotfix Production",
+        "description": "500 error on checkout",
+        "deadline": "2026-05-15T12:00:00Z",
+        "created_at": "2026-05-15T09:00:00Z",
+        "updated_at": "2026-05-12T19:08:26.980Z",
+        "status": "IN_REVIEW",
+        "priority": "URGENT",
+        "task_type": 12,
+        "project": 1,
+        "assignees": [
+            1,
+            11
+        ],
+        "tags": [
+            12,
+            3
+        ]
+    }
+},
+{
+    "model": "work.project",
+    "pk": 1,
+    "fields": {
+        "name": "Task Tracker",
+        "description": "Main app",
+        "created_at": "2026-01-01T10:00:00Z",
+        "is_active": true,
+        "team": 1
+    }
+},
+{
+    "model": "work.project",
+    "pk": 2,
+    "fields": {
+        "name": "Payment Portal",
+        "description": "",
+        "created_at": "2026-01-02T10:00:00Z",
+        "is_active": true,
+        "team": 16
+    }
+},
+{
+    "model": "work.project",
+    "pk": 3,
+    "fields": {
+        "name": "Analytics Dashboard",
+        "description": "",
+        "created_at": "2026-01-03T10:00:00Z",
+        "is_active": true,
+        "team": 6
+    }
+},
+{
+    "model": "work.project",
+    "pk": 4,
+    "fields": {
+        "name": "Company Site",
+        "description": "",
+        "created_at": "2026-01-04T10:00:00Z",
+        "is_active": false,
+        "team": 10
+    }
+},
+{
+    "model": "work.project",
+    "pk": 5,
+    "fields": {
+        "name": "API Gateway",
+        "description": "",
+        "created_at": "2026-01-05T10:00:00Z",
+        "is_active": true,
+        "team": 21
+    }
+},
+{
+    "model": "work.project",
+    "pk": 6,
+    "fields": {
+        "name": "Security Tool",
+        "description": "",
+        "created_at": "2026-01-06T10:00:00Z",
+        "is_active": true,
+        "team": 7
+    }
+},
+{
+    "model": "work.project",
+    "pk": 7,
+    "fields": {
+        "name": "Client Portal",
+        "description": "",
+        "created_at": "2026-01-07T10:00:00Z",
+        "is_active": true,
+        "team": 14
+    }
+},
+{
+    "model": "work.project",
+    "pk": 8,
+    "fields": {
+        "name": "HR System",
+        "description": "",
+        "created_at": "2026-01-08T10:00:00Z",
+        "is_active": true,
+        "team": 11
+    }
+},
+{
+    "model": "work.project",
+    "pk": 9,
+    "fields": {
+        "name": "Cloud Migrate",
+        "description": "",
+        "created_at": "2026-01-09T10:00:00Z",
+        "is_active": true,
+        "team": 21
+    }
+},
+{
+    "model": "work.project",
+    "pk": 10,
+    "fields": {
+        "name": "Auto-Tester",
+        "description": "",
+        "created_at": "2026-01-10T10:00:00Z",
+        "is_active": true,
+        "team": 3
+    }
+},
+{
+    "model": "work.project",
+    "pk": 11,
+    "fields": {
+        "name": "Documentation Wiki",
+        "description": "",
+        "created_at": "2026-01-11T10:00:00Z",
+        "is_active": true,
+        "team": 9
+    }
+},
+{
+    "model": "work.project",
+    "pk": 12,
+    "fields": {
+        "name": "Legacy ERP",
+        "description": "",
+        "created_at": "2026-01-12T10:00:00Z",
+        "is_active": true,
+        "team": 15
+    }
+},
+{
+    "model": "work.project",
+    "pk": 13,
+    "fields": {
+        "name": "Smart Contracts",
+        "description": "",
+        "created_at": "2026-01-13T10:00:00Z",
+        "is_active": true,
+        "team": 20
+    }
+},
+{
+    "model": "work.project",
+    "pk": 14,
+    "fields": {
+        "name": "Support Bot",
+        "description": "",
+        "created_at": "2026-01-14T10:00:00Z",
+        "is_active": true,
+        "team": 9
+    }
+},
+{
+    "model": "work.project",
+    "pk": 15,
+    "fields": {
+        "name": "Ad Engine",
+        "description": "",
+        "created_at": "2026-01-15T10:00:00Z",
+        "is_active": true,
+        "team": 10
+    }
+},
+{
+    "model": "work.project",
+    "pk": 16,
+    "fields": {
+        "name": "Style Guide",
+        "description": "",
+        "created_at": "2026-01-16T10:00:00Z",
+        "is_active": true,
+        "team": 2
+    }
+},
+{
+    "model": "work.project",
+    "pk": 17,
+    "fields": {
+        "name": "Mobile iOS",
+        "description": "",
+        "created_at": "2026-01-17T10:00:00Z",
+        "is_active": true,
+        "team": 5
+    }
+},
+{
+    "model": "work.project",
+    "pk": 18,
+    "fields": {
+        "name": "Mobile Android",
+        "description": "",
+        "created_at": "2026-01-18T10:00:00Z",
+        "is_active": true,
+        "team": 5
+    }
+},
+{
+    "model": "work.project",
+    "pk": 19,
+    "fields": {
+        "name": "PDF Engine",
+        "description": "",
+        "created_at": "2026-01-19T10:00:00Z",
+        "is_active": true,
+        "team": 1
+    }
+},
+{
+    "model": "work.project",
+    "pk": 20,
+    "fields": {
+        "name": "CRM Sync",
+        "description": "",
+        "created_at": "2026-01-20T10:00:00Z",
+        "is_active": true,
+        "team": 8
+    }
+},
+{
+    "model": "work.project",
+    "pk": 21,
+    "fields": {
+        "name": "Unassigned",
+        "description": "work without project",
+        "created_at": "2026-01-21T10:00:00Z",
+        "is_active": true,
+        "team": 21
+    }
+},
+{
+    "model": "users.position",
+    "pk": 1,
+    "fields": {
+        "name": "Python Developer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 2,
+    "fields": {
+        "name": "Frontend Developer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 3,
+    "fields": {
+        "name": "Project Manager"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 4,
+    "fields": {
+        "name": "QA Engineer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 5,
+    "fields": {
+        "name": "DevOps Engineer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 6,
+    "fields": {
+        "name": "UI/UX Designer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 7,
+    "fields": {
+        "name": "Data Scientist"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 8,
+    "fields": {
+        "name": "Business Analyst"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 9,
+    "fields": {
+        "name": "Security Expert"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 10,
+    "fields": {
+        "name": "Mobile Developer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 11,
+    "fields": {
+        "name": "Team Lead"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 12,
+    "fields": {
+        "name": "CTO"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 13,
+    "fields": {
+        "name": "HR Manager"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 14,
+    "fields": {
+        "name": "Fullstack Developer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 15,
+    "fields": {
+        "name": "System Administrator"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 16,
+    "fields": {
+        "name": "Database Administrator"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 17,
+    "fields": {
+        "name": "Scrum Master"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 18,
+    "fields": {
+        "name": "Support Engineer"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 19,
+    "fields": {
+        "name": "Marketing Specialist"
+    }
+},
+{
+    "model": "users.position",
+    "pk": 20,
+    "fields": {
+        "name": "Technical Writer"
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": "2026-05-12T19:34:12.298Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "Admin",
+        "last_name": "User",
+        "email": "admin@task.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-01-01T10:00:00Z",
+        "position": 12,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jdoe",
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-02T10:00:00Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "asmith",
+        "first_name": "Alice",
+        "last_name": "Smith",
+        "email": "alice@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-03T10:00:00Z",
+        "position": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "bobm",
+        "first_name": "Bob",
+        "last_name": "Martin",
+        "email": "bob@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-04T10:00:00Z",
+        "position": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "charlie_b",
+        "first_name": "Charlie",
+        "last_name": "Brown",
+        "email": "charlie@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-05T10:00:00Z",
+        "position": 4,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "diana_p",
+        "first_name": "Diana",
+        "last_name": "Prince",
+        "email": "diana@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-06T10:00:00Z",
+        "position": 5,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "evan_s",
+        "first_name": "Evan",
+        "last_name": "Spiegel",
+        "email": "evan@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-07T10:00:00Z",
+        "position": 6,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "fiona_g",
+        "first_name": "Fiona",
+        "last_name": "Gallagher",
+        "email": "fiona@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-08T10:00:00Z",
+        "position": 7,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "george_h",
+        "first_name": "George",
+        "last_name": "Harrison",
+        "email": "george@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-09T10:00:00Z",
+        "position": 8,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "hannah_m",
+        "first_name": "Hannah",
+        "last_name": "Montana",
+        "email": "hannah@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-10T10:00:00Z",
+        "position": 9,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "ian_m",
+        "first_name": "Ian",
+        "last_name": "McKellen",
+        "email": "ian@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-11T10:00:00Z",
+        "position": 10,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jack_s",
+        "first_name": "Jack",
+        "last_name": "Sparrow",
+        "email": "jack@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-12T10:00:00Z",
+        "position": 11,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "katie_p",
+        "first_name": "Katie",
+        "last_name": "Perry",
+        "email": "katie@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-13T10:00:00Z",
+        "position": 13,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 14,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "leo_d",
+        "first_name": "Leonardo",
+        "last_name": "Dicaprio",
+        "email": "leo@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-14T10:00:00Z",
+        "position": 14,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 15,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mia_f",
+        "first_name": "Mia",
+        "last_name": "Farrow",
+        "email": "mia@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-15T10:00:00Z",
+        "position": 15,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 16,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "noah_c",
+        "first_name": "Noah",
+        "last_name": "Centineo",
+        "email": "noah@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-16T10:00:00Z",
+        "position": 16,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 17,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "olivia_w",
+        "first_name": "Olivia",
+        "last_name": "Wilde",
+        "email": "olivia@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-17T10:00:00Z",
+        "position": 17,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 18,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "paul_r",
+        "first_name": "Paul",
+        "last_name": "Rudd",
+        "email": "paul@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-18T10:00:00Z",
+        "position": 18,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 19,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "quinn_f",
+        "first_name": "Quinn",
+        "last_name": "Fabray",
+        "email": "quinn@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-19T10:00:00Z",
+        "position": 19,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.worker",
+    "pk": 20,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2UWdaq3D6rYGuUKnGDAQGA$xBwG8gxq+63wGla8d4jZ2eo2K9cJV+5kTpxEKSsH7wg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "riley_r",
+        "first_name": "Riley",
+        "last_name": "Reid",
+        "email": "riley@task.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-20T10:00:00Z",
+        "position": 20,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.team",
+    "pk": 1,
+    "fields": {
+        "name": "Dev Squad 1",
+        "description": "Backend team",
+        "created_at": "2026-01-01T10:00:00Z",
+        "workers": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 2,
+    "fields": {
+        "name": "UI Specialists",
+        "description": "Design team",
+        "created_at": "2026-01-02T10:00:00Z",
+        "workers": [
+            6,
+            14
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 3,
+    "fields": {
+        "name": "QA Force",
+        "description": "Testing unit",
+        "created_at": "2026-01-03T10:00:00Z",
+        "workers": [
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 4,
+    "fields": {
+        "name": "Cloud Ops",
+        "description": "DevOps unit",
+        "created_at": "2026-01-04T10:00:00Z",
+        "workers": [
+            5,
+            15
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 5,
+    "fields": {
+        "name": "Mobile Force",
+        "description": "App devs",
+        "created_at": "2026-01-05T10:00:00Z",
+        "workers": [
+            10,
+            14
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 6,
+    "fields": {
+        "name": "Data Wizards",
+        "description": "Analysis",
+        "created_at": "2026-01-06T10:00:00Z",
+        "workers": [
+            7,
+            8
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 7,
+    "fields": {
+        "name": "Sec Guard",
+        "description": "Cyber security",
+        "created_at": "2026-01-07T10:00:00Z",
+        "workers": [
+            9,
+            16
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 8,
+    "fields": {
+        "name": "Management",
+        "description": "Business unit",
+        "created_at": "2026-01-08T10:00:00Z",
+        "workers": [
+            3,
+            11
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 9,
+    "fields": {
+        "name": "Support Team",
+        "description": "Helpdesk",
+        "created_at": "2026-01-09T10:00:00Z",
+        "workers": [
+            18,
+            20
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 10,
+    "fields": {
+        "name": "Marketing Unit",
+        "description": "Sales",
+        "created_at": "2026-01-10T10:00:00Z",
+        "workers": [
+            19
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 11,
+    "fields": {
+        "name": "HR Team",
+        "description": "People team",
+        "created_at": "2026-01-11T10:00:00Z",
+        "workers": [
+            13
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 12,
+    "fields": {
+        "name": "DB Masters",
+        "description": "SQL experts",
+        "created_at": "2026-01-12T10:00:00Z",
+        "workers": [
+            16
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 13,
+    "fields": {
+        "name": "R&D Lab",
+        "description": "Research",
+        "created_at": "2026-01-13T10:00:00Z",
+        "workers": [
+            7
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 14,
+    "fields": {
+        "name": "Frontliners",
+        "description": "React team",
+        "created_at": "2026-01-14T10:00:00Z",
+        "workers": [
+            2
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 15,
+    "fields": {
+        "name": "Maintenance",
+        "description": "Legacy",
+        "created_at": "2026-01-15T10:00:00Z",
+        "workers": [
+            18
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 16,
+    "fields": {
+        "name": "E-Commerce",
+        "description": "Store devs",
+        "created_at": "2026-01-16T10:00:00Z",
+        "workers": [
+            1
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 17,
+    "fields": {
+        "name": "Internal Tools",
+        "description": "Automation",
+        "created_at": "2026-01-17T10:00:00Z",
+        "workers": [
+            5
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 18,
+    "fields": {
+        "name": "Alpha Unit",
+        "description": "Top secret",
+        "created_at": "2026-01-18T10:00:00Z",
+        "workers": [
+            11
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 19,
+    "fields": {
+        "name": "Beta Unit",
+        "description": "Prototype",
+        "created_at": "2026-01-19T10:00:00Z",
+        "workers": [
+            14
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 20,
+    "fields": {
+        "name": "Fullstackers",
+        "description": "Universal",
+        "created_at": "2026-01-20T10:00:00Z",
+        "workers": [
+            1
+        ]
+    }
+},
+{
+    "model": "users.team",
+    "pk": 21,
+    "fields": {
+        "name": "Blank",
+        "description": "Placeholder team",
+        "created_at": "2026-01-21T10:00:00Z",
+        "workers": []
+    }
+}
+]

@@ -1,9 +1,7 @@
-from dotenv import load_dotenv
 from .base import *
 
 
 DEBUG = False
-load_dotenv()
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
@@ -21,7 +19,7 @@ DATABASES = {
    'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
    'HOST': os.getenv('POSTGRES_HOST'),
    'PORT': int(os.getenv('POSTGRES_DB_PORT', 5432)),
-'OPTIONS': {
+   'OPTIONS': {
            'sslmode': 'require',
        },
  }

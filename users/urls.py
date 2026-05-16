@@ -1,0 +1,105 @@
+from django.urls import path
+
+from users.views import (
+    PositionListView,
+    PositionUpdateView,
+    PositionCreateView,
+    WorkerListView,
+    WorkerDetailView,
+    WorkerUpdateView,
+    WorkerCreateView,
+    WorkerDeleteView,
+    TeamListView,
+    TeamDetailView,
+    TeamUpdateView,
+    TeamCreateView,
+    TeamDeleteView,
+    TeamRemoveProject,
+    ToggleAssignToTeam,
+    AddProjectToTeam
+)
+
+urlpatterns = [
+    path(
+        "positions/",
+        PositionListView.as_view(),
+        name="position-list",
+    ),
+    path(
+        "positions/<int:pk>/update/",
+        PositionUpdateView.as_view(),
+        name="position-update",
+    ),
+    path(
+        "positions/create/",
+        PositionCreateView.as_view(),
+        name="position-create",
+    ),
+    path(
+        "workers/",
+        WorkerListView.as_view(),
+        name="worker-list",
+    ),
+    path(
+        "workers/<int:pk>/",
+        WorkerDetailView.as_view(),
+        name="worker-detail",
+    ),
+    path(
+        "workers/<int:pk>/update/",
+        WorkerUpdateView.as_view(),
+        name="worker-update",
+    ),
+    path(
+        "workers/create/",
+        WorkerCreateView.as_view(),
+        name="worker-create",
+    ),
+    path(
+        "workers/<int:pk>/delete/",
+        WorkerDeleteView.as_view(),
+        name="worker-delete",
+    ),
+    path(
+        "teams/",
+        TeamListView.as_view(),
+        name="team-list",
+    ),
+    path(
+        "teams/<int:pk>/",
+        TeamDetailView.as_view(),
+        name="team-detail"
+    ),
+    path(
+        "teams/<int:pk>/update/",
+        TeamUpdateView.as_view(),
+        name="team-update",
+    ),
+    path(
+        "teams/create/",
+        TeamCreateView.as_view(),
+        name="team-create",
+    ),
+    path(
+        "teams/<int:pk>/delete/",
+        TeamDeleteView.as_view(),
+        name="team-delete",
+    ),
+    path(
+        "teams/<int:pk>/remove-project/<int:project_id>/",
+        TeamRemoveProject.as_view(),
+        name="team-remove-project",
+    ),
+    path(
+        "teams/<int:pk>/toggle-assign/",
+        ToggleAssignToTeam.as_view(),
+        name="toggle-team-assign",
+    ),
+    path(
+        "teams/<int:pk>/add-project/",
+        AddProjectToTeam.as_view(),
+        name="team-add-project",
+    ),
+]
+
+app_name = "users"

@@ -1,0 +1,160 @@
+{% extends "layouts/base-presentation.html" %}
+
+{% block title %}
+  Team Detail
+{% endblock %}
+
+{% block content %}
+
+<section class="py-7">
+  <div class="container">
+
+    <div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <a href="{% url "users:team-list" %}"
+             class="btn btn-outline-secondary btn-sm">
+            ← Back to Teams
+          </a>
+          <button class="btn btn-primary btn-sm"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#addTaskForm"
+                  aria-expanded="false"
+                  aria-controls="addTaskForm">
+            + Assign Project
+          </button>
+        </div>
+      <div class="collapse mb-4" id="addTaskForm">
+        <div class="card card-body shadow-sm">
+          <form method="post" action="{% url "users:team-add-project" team.id %}">
+            {% csrf_token %}
+            <select name="project_id" class="form-select mb-3">
+              {% for project in available_projects %}
+                <option value="{{ project.id }}">
+                  {{ project.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
+                </option>
+              {% empty %}
+                <option disabled>No available projects</option>
+              {% endfor %}
+            </select>
+            <button class="btn btn-success w-100">
+              Assign Project
+            </button>
+          </form>
+        </div>
+      </div>
+
+        <div class="card shadow-lg">
+
+          <div class="card-body p-5">
+
+            <div class="d-flex justify-content-between align-items-start mb-4">
+
+              <div>
+
+                <h2 class="mb-1">
+                  {{ team.name }}
+                </h2>
+
+              <p class="text-sm mb-2">
+                <strong>Projects:</strong>
+              </p>
+
+              <div class="d-flex flex-column gap-2">
+
+                {% for project in team.projects.all %}
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge bg-secondary me-1">
+                      {{ project.name }} • {% if project.is_active %}Active{% else %}Not active{% endif %}
+                    </span>
+                    {% if user.is_staff %}
+                      <form action="{% url "users:team-remove-project" pk=team.id project_id=project.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="badge bg-danger me-1 shadow-none border-0" style="text-decoration: none;">
+                        🗑️
+                      </button>
+                    </form>
+                    {% endif %}
+                  </div>
+
+                {% empty %}
+                  <span class="text-muted">There are no projects yet</span>
+                {% endfor %}
+              </div>
+
+              </div>
+
+              <div class="d-flex gap-2">
+
+                <a href="{% url "users:team-update" pk=team.id %}"
+                   class="btn btn-outline-primary btn-sm">
+                  Update
+                </a>
+
+                <a href="{% url "users:team-delete" pk=team.id %}"
+                   class="btn btn-outline-danger btn-sm">
+                  Delete
+                </a>
+
+              </div>
+
+            </div>
+
+            <hr>
+
+            <div class="mt-3">
+
+              <h6>Description</h6>
+
+              <p class="text-sm text-muted mb-0">
+                {% if project.description %}
+                  {{ project.description }}
+                {% else %}
+                  There are no description provided
+                {% endif %}
+              </p>
+
+            </div>
+
+            <hr>
+
+            <div class="col-md-6 mb-3">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+              <p class="text-sm mb-0">
+                <strong>Team members:</strong>
+              </p>
+              {% if team in user.teams.all %}
+                <form action="{% url "users:toggle-team-assign" pk=team.id %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="badge bg-danger btn-sm shadow-none border-0" style="text-decoration: none;">
+                    Leave the team
+                  </button>
+                </form>
+              {% else %}
+                <form action="{% url "users:toggle-team-assign" pk=team.id %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="badge bg-primary btn-sm shadow-none border-0" style="text-decoration: none;">
+                    Join the team
+                  </button>
+                </form>
+              {% endif %}
+            </div>
+
+                {% for worker in team.workers.all %}
+                  <span class="badge bg-secondary me-1">
+                    {{ worker.username }} {% if request.user == worker %} (Me){% endif %}
+                  </span>
+                {% empty %}
+                  This team doesn't have any members
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
